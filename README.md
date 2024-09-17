@@ -12,7 +12,9 @@ python3.12 -m venv .venv
 ```
 2. Activate your virtual environment if you haven't.
 ```
-source .venv/bin/activate
+source .venv/bin/activate # MacOs/Linux
+
+.venv/scripts/activate # Windows
 ```
 3. Install requirements
 ```
