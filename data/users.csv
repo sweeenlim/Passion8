@@ -1,0 +1,603 @@
+user_id,age,gender
+1,23,Female
+2,23,Female
+3,24,Prefer not to say
+4,24,Female
+5,22,Female
+6,21,Female
+7,22,Female
+8,21,Female
+9,20,Female
+10,23,Female
+11,22,Female
+12,25,Female
+13,23,Female
+14,24,Female
+15,21,Female
+16,23,Female
+17,16,Male
+18,21,Female
+19,23,Female
+20,25,Female
+21,64,Male
+22,23,Female
+23,21,Male
+24,16,Female
+25,23,Female
+26,24,Female
+27,22,Female
+28,23,Female
+29,23,Female
+30,24,Female
+31,25,Female
+32,23,Female
+33,23,Female
+34,23,Female
+35,23,Male
+36,24,Female
+37,24,Female
+38,23,Female
+39,29,Male
+40,19,Female
+41,26,Female
+42,32,Male
+43,30,Female
+44,22,Female
+45,26,Female
+46,24,Female
+47,23,Female
+48,24,Female
+49,23,Female
+50,24,Male
+51,23,Female
+52,25,Male
+53,24,Female
+54,21,Female
+55,23,Female
+56,26,Female
+57,23,Female
+58,23,Female
+59,40,Male
+60,25,Female
+61,24,Male
+62,23,Female
+63,24,Male
+64,24,Male
+65,24,Female
+66,26,Male
+67,23,Female
+68,23,Female
+69,24,Female
+70,23,Male
+71,24,Female
+72,36,Female
+73,26,Male
+74,31,Male
+75,23,Male
+76,23,Female
+77,30,Male
+78,24,Female
+79,47,Prefer not to say
+80,54,Others
+81,58,Male
+82,53,Female
+83,23,Prefer not to say
+84,25,Others
+85,23,Female
+86,32,Male
+87,30,Prefer not to say
+88,28,Others
+89,20,Female
+90,25,Male
+91,55,Others
+92,24,Female
+93,62,Female
+94,27,Male
+95,34,Prefer not to say
+96,40,Female
+97,22,Others
+98,34,Prefer not to say
+99,24,Female
+100,44,Male
+101,31,Female
+102,23,Female
+103,23,Female
+104,22,Female
+105,24,Female
+106,23,Prefer not to say
+107,25,Male
+108,23,Male
+109,24,Male
+110,24,Female
+111,26,Female
+112,25,Female
+113,26,Male
+114,29,Male
+115,23,Female
+116,30,Male
+117,23,Female
+118,21,Female
+119,23,Female
+120,21,Female
+121,23,Female
+122,27,Male
+123,38,Female
+124,23,Female
+125,38,Female
+126,23,Male
+127,24,Male
+128,25,Female
+129,26,Male
+130,27,Male
+131,29,Prefer not to say
+132,35,Prefer not to say
+133,21,Female
+134,36,Male
+135,44,Female
+136,32,Female
+137,30,Male
+138,36,Others
+139,25,Male
+140,20,Female
+141,35,Female
+142,42,Male
+143,37,Female
+144,28,Female
+145,27,Male
+146,45,Female
+147,35,Male
+148,50,Female
+149,54,Female
+150,29,Female
+151,63,Male
+152,24,Male
+153,23,Female
+154,26,Female
+155,29,Male
+156,46,Prefer not to say
+157,24,Male
+158,33,Female
+159,33,Female
+160,31,Prefer not to say
+161,40,Prefer not to say
+162,37,Male
+163,25,Prefer not to say
+164,60,Female
+165,18,Female
+166,50,Male
+167,24,Prefer not to say
+168,19,Female
+169,18,Female
+170,17,Male
+171,27,Female
+172,23,Male
+173,35,Female
+174,57,Female
+175,54,Male
+176,26,Prefer not to say
+177,46,Male
+178,26,Female
+179,24,Male
+180,26,Female
+181,27,Male
+182,22,Female
+183,24,Male
+184,25,Male
+185,22,Prefer not to say
+186,27,Male
+187,23,Female
+188,24,Male
+189,24,Female
+190,23,Female
+191,23,Male
+192,25,Female
+193,21,Male
+194,36,Female
+195,23,Female
+196,23,Female
+197,23,Prefer not to say
+198,21,Female
+199,23,Prefer not to say
+200,26,Others
+201,30,Female
+202,37,Female
+203,26,Female
+204,46,Female
+205,36,Female
+206,40,Female
+207,41,Male
+208,34,Male
+209,29,Female
+210,35,Male
+211,32,Male
+212,41,Male
+213,35,Female
+214,36,Female
+215,46,Female
+216,39,Female
+217,48,Male
+218,25,Male
+219,38,Male
+220,26,Male
+221,40,Female
+222,49,Female
+223,30,Male
+224,24,Female
+225,23,Female
+226,27,Male
+227,28,Male
+228,23,Male
+229,46,Female
+230,27,Male
+231,20,Female
+232,23,Female
+233,29,Female
+234,29,Female
+235,57,Female
+236,25,Female
+237,23,Female
+238,15,Male
+239,39,Male
+240,23,Female
+241,25,Female
+242,37,Female
+243,23,Female
+244,23,Female
+245,23,Female
+246,23,Female
+247,21,Female
+248,21,Female
+249,34,Female
+250,23,Female
+251,23,Female
+252,23,Prefer not to say
+253,27,Female
+254,23,Female
+255,47,Female
+256,54,Male
+257,46,Prefer not to say
+258,38,Female
+259,45,Female
+260,34,Male
+261,44,Female
+262,23,Female
+263,32,Female
+264,23,Female
+265,23,Female
+266,23,Male
+267,19,Female
+268,23,Female
+269,23,Female
+270,34,Male
+271,34,Female
+272,34,Female
+273,23,Prefer not to say
+274,45,Female
+275,23,Female
+276,34,Female
+277,37,Female
+278,34,Female
+279,23,Others
+280,45,Female
+281,26,Male
+282,34,Female
+283,21,Prefer not to say
+284,23,Prefer not to say
+285,41,Male
+286,32,Female
+287,23,Female
+288,22,Female
+289,48,Female
+290,32,Male
+291,28,Prefer not to say
+292,23,Female
+293,23,Female
+294,26,Female
+295,34,Female
+296,23,Female
+297,22,Female
+298,32,Prefer not to say
+299,47,Female
+300,22,Female
+301,47,Male
+302,22,Female
+303,45,Prefer not to say
+304,21,Male
+305,27,Others
+306,37,Male
+307,33,Female
+308,22,Others
+309,25,Male
+310,28,Female
+311,17,Prefer not to say
+312,16,Male
+313,32,Male
+314,27,Female
+315,18,Female
+316,37,Male
+317,28,Male
+318,48,Female
+319,50,Female
+320,24,Female
+321,40,Female
+322,25,Female
+323,31,Male
+324,18,Female
+325,26,Female
+326,16,Female
+327,18,Male
+328,40,Male
+329,19,Female
+330,16,Prefer not to say
+331,43,Male
+332,25,Prefer not to say
+333,22,Female
+334,17,Prefer not to say
+335,34,Male
+336,30,Prefer not to say
+337,31,Others
+338,31,Female
+339,34,Prefer not to say
+340,26,Female
+341,26,Male
+342,24,Prefer not to say
+343,26,Female
+344,29,Male
+345,37,Prefer not to say
+346,34,Others
+347,31,Female
+348,27,Male
+349,23,Male
+350,21,Prefer not to say
+351,53,Male
+352,26,Prefer not to say
+353,28,Prefer not to say
+354,47,Female
+355,37,Prefer not to say
+356,37,Prefer not to say
+357,39,Male
+358,40,Prefer not to say
+359,23,Female
+360,25,Prefer not to say
+361,34,Female
+362,26,Female
+363,31,Prefer not to say
+364,26,Female
+365,34,Female
+366,18,Female
+367,40,Male
+368,42,Female
+369,35,Prefer not to say
+370,37,Male
+371,46,Male
+372,24,Prefer not to say
+373,35,Prefer not to say
+374,46,Female
+375,32,Others
+376,35,Female
+377,36,Female
+378,15,Female
+379,43,Prefer not to say
+380,20,Prefer not to say
+381,34,Female
+382,34,Male
+383,47,Female
+384,25,Female
+385,21,Prefer not to say
+386,24,Prefer not to say
+387,36,Female
+388,46,Male
+389,27,Male
+390,25,Male
+391,43,Male
+392,32,Prefer not to say
+393,18,Male
+394,45,Female
+395,25,Prefer not to say
+396,45,Male
+397,32,Female
+398,42,Female
+399,35,Female
+400,35,Female
+401,52,Male
+402,24,Female
+403,28,Female
+404,33,Female
+405,23,Female
+406,21,Female
+407,34,Female
+408,23,Prefer not to say
+409,34,Prefer not to say
+410,34,Female
+411,25,Female
+412,32,Male
+413,24,Female
+414,34,Female
+415,44,Male
+416,23,Female
+417,23,Female
+418,34,Female
+419,23,Female
+420,36,Female
+421,24,Female
+422,21,Female
+423,21,Female
+424,45,Male
+425,21,Female
+426,23,Female
+427,21,Female
+428,34,Female
+429,21,Female
+430,23,Female
+431,21,Female
+432,32,Female
+433,35,Prefer not to say
+434,37,Male
+435,23,Female
+436,33,Others
+437,35,Female
+438,44,Female
+439,34,Male
+440,34,Prefer not to say
+441,34,Female
+442,34,Female
+443,3,Prefer not to say
+444,23,Female
+445,33,Female
+446,23,Female
+447,34,Female
+448,23,Female
+449,34,Prefer not to say
+450,23,Female
+451,23,Female
+452,23,Female
+453,23,Prefer not to say
+454,45,Female
+455,23,Female
+456,34,Prefer not to say
+457,45,Female
+458,34,Female
+459,45,Female
+460,67,Female
+461,34,Others
+462,21,Female
+463,17,Female
+464,34,Female
+465,46,Prefer not to say
+466,54,Female
+467,56,Prefer not to say
+468,50,Prefer not to say
+469,56,Prefer not to say
+470,22,Prefer not to say
+471,25,Prefer not to say
+472,23,Male
+473,23,Prefer not to say
+474,56,Female
+475,56,Female
+476,23,Female
+477,56,Female
+478,23,Female
+479,45,Female
+480,23,Female
+481,23,Female
+482,34,Prefer not to say
+483,34,Female
+484,45,Others
+485,33,Prefer not to say
+486,34,Female
+487,45,Prefer not to say
+488,45,Male
+489,34,Female
+490,67,Prefer not to say
+491,34,Female
+492,45,Others
+493,23,Female
+494,21,Prefer not to say
+495,23,Female
+496,23,Prefer not to say
+497,42,Female
+498,23,Prefer not to say
+499,23,Prefer not to say
+500,25,Prefer not to say
+501,40,Male
+502,23,Female
+503,23,Female
+504,27,Male
+505,39,Male
+506,32,Female
+507,36,Female
+508,40,Female
+509,23,Male
+510,45,Female
+511,45,Prefer not to say
+512,45,Prefer not to say
+513,45,Prefer not to say
+514,45,Female
+515,32,Male
+516,34,Prefer not to say
+517,54,Male
+518,25,Male
+519,26,Others
+520,36,Female
+521,22,Male
+522,34,Female
+523,35,Female
+524,34,Prefer not to say
+525,21,Others
+526,24,Female
+527,26,Prefer not to say
+528,36,Male
+529,36,Female
+530,28,Female
+531,40,Female
+532,50,Female
+533,27,Male
+534,27,Female
+535,45,Male
+536,46,Female
+537,60,Prefer not to say
+538,32,Female
+539,45,Female
+540,25,Female
+541,37,Female
+542,37,Female
+543,32,Male
+544,56,Male
+545,34,Female
+546,21,Male
+547,46,Male
+548,21,Male
+549,31,Female
+550,36,Female
+551,35,Female
+552,25,Male
+553,45,Female
+554,36,Female
+555,36,Female
+556,43,Male
+557,34,Female
+558,43,Male
+559,25,Female
+560,43,Female
+561,56,Female
+562,32,Female
+563,21,Male
+564,34,Male
+565,34,Female
+566,34,Female
+567,45,Prefer not to say
+568,45,Female
+569,45,Prefer not to say
+570,45,Female
+571,45,Female
+572,45,Prefer not to say
+573,25,Female
+574,45,Prefer not to say
+575,60,Male
+576,26,Male
+577,25,Prefer not to say
+578,45,Female
+579,12,Female
+580,56,Prefer not to say
+581,45,Female
+582,41,Female
+583,23,Female
+584,23,Female
+585,45,Female
+586,25,Female
+587,25,Male
+588,23,Female
+589,23,Female
+590,23,Female
+591,23,Female
+592,23,Prefer not to say
+593,23,Female
+594,23,Female
+595,23,Female
+596,23,Female
+597,25,Female
+598,23,Female
+599,23,Female
+600,23,Female
+601,23,Female
+602,23,Female
