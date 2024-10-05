@@ -24,7 +24,7 @@ def load_data():
                                     FROM online_sales 
                                     GROUP BY date, product_id
                                     ORDER BY product_id, date""", conn)
-    forecast_data = pd.read_csv("/Users/user/Passion8/demand_forecast/forecast.csv")
+    forecast_data = pd.read_csv('forecast.csv')
 
     
     
