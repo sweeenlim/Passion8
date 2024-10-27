@@ -7,47 +7,47 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 
-def load_data():
-    """Load and preprocess actual and forecast data."""
-    # Load actual and forecast data from postgres database
-    # Connect to the database
-    current_dir = os.getcwd()
-    parent_dir = os.path.dirname(current_dir)
+# Load environment variables
+current_dir = os.getcwd()
+parent_dir = os.path.dirname(current_dir)
+load_dotenv(f'{parent_dir}/.env')
 
-    load_dotenv(f'{parent_dir}/.env')
+postgres_password = os.getenv('POSTGRES_PASSWORD')
+postgres_port_no = os.getenv('POSTGRES_PORT_NO')
+host = os.getenv('POSTGRES_HOST')
+database = os.getenv('POSTGRES_DB')
+user = os.getenv('POSTGRES_USER')
 
-    postgres_password = os.getenv('POSTGRES_PASSWORD')
-    postgres_port_no = os.getenv('POSTGRES_PORT_NO')
-    host = os.getenv('POSTGRES_HOST')
-    database = os.getenv('POSTGRES_DB')
-    user = os.getenv('POSTGRES_USER')
-    # connect to db
-    conn = psycopg2.connect(
+def get_db_connection():
+    """Get a database connection."""
+    return psycopg2.connect(
         host=host,
         database=database,
         user=user,
         password=postgres_password,
-        port=postgres_port_no
+        port=postgres_port_no,
     )
-    
-    print("Connected to database")
-    # Get products table 
-    products = pd.read_sql_query("SELECT * FROM products", conn)
 
-    # Get actual sales data
-    actual_data = pd.read_sql_query("""
-                                    SELECT date, product_id, SUM("Quantity") AS sales
-                                    FROM online_sales 
-                                    GROUP BY date, product_id
-                                    ORDER BY product_id, date""", conn)
+def load_data():
+    """Load and preprocess actual and forecast data."""
+    with get_db_connection() as conn:
+        print("Connected to database")
+        # Get products table 
+        products = pd.read_sql_query("SELECT * FROM products", conn)
+
+        # Get actual sales data
+        actual_data = pd.read_sql_query("""
+                                        SELECT date, product_id, SUM("Quantity") AS sales
+                                        FROM online_sales 
+                                        GROUP BY date, product_id
+                                        ORDER BY product_id, date""", conn)
     forecast_data = pd.read_csv('demand_forecast/forecast.csv')
     return actual_data, forecast_data, products
 
-def filter_data_by_product(actual_data, forecast_data, product):
+def filter_data_by_product(actual_data, forecast_data, product_id):
     """Filter actual and forecast data by selected product."""
-    actual_product_data = actual_data[actual_data["product_id"] == product]
-    forecast_product_data = forecast_data[forecast_data["product"] == product]
-    
+    actual_product_data = actual_data[actual_data["product_id"] == product_id]
+    forecast_product_data = forecast_data[forecast_data["product"] == product_id]
     return actual_product_data, forecast_product_data
 
 def create_line_chart(actual_product_data, forecast_product_data):
@@ -63,13 +63,13 @@ def create_line_chart(actual_product_data, forecast_product_data):
     
     return fig
 
-def load_product_details(products, product):
+def load_product_details(products, product_name):
     """Load product details from products.csv."""
-    # Add USD infront of the price
+    # Add USD in front of the price
     products["actual_price"] = "USD " + products["actual_price"].astype(str) 
-    products["discounted_price"] = "USD "+ products["discounted_price"].astype(str) 
+    products["discounted_price"] = "USD " + products["discounted_price"].astype(str) 
     
-    product_details = products[products["product_name"] == product]
+    product_details = products[products["product_name"] == product_name]
     
     product_name = product_details["product_name"].values[0]
     product_category = product_details["category"].values[0]
@@ -78,12 +78,16 @@ def load_product_details(products, product):
     
     return product_name, product_category, product_price, product_discounted
 
-def display_product_details(tab,product_name, product_category, product_price, product_discounted):
+def display_product_details(tab, product_name, product_category, product_price, product_discounted):
     """Display product details on Streamlit."""
-    tab.write(f"**🛍️ Product Name:** {product_name}")
-    tab.write(f"**🛒 Product Category:** {product_category}")
-    tab.write(f"**💰 Product Price:** {product_price}")
-    tab.write(f"**💲 Product Discounted Price:** {product_discounted}")
+    tab.markdown(f"""
+    <div style="font-size:16px;">
+        **🛍️ Product Name:** {product_name}<br>
+        **🛒 Product Category:** {product_category}<br>
+        **💰 Product Price:** {product_price}<br>
+        **💲 Product Discounted Price:** {product_discounted}
+    </div>
+    """, unsafe_allow_html=True)
 
 def display_tab1(tab1, actual_data, forecast_data, products):
     """Display content for tab1."""
@@ -129,7 +133,6 @@ def main():
 
     # Display content for tab1
     display_tab1(tab1, actual_data, forecast_data, products)
-    
     
 if __name__ == "__main__":
     main()
