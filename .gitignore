@@ -1,1 +1,4 @@
 .venv/
+.DS_Store
+images_aug_2k
+images
