@@ -11,12 +11,14 @@ This project implements an AI-based system that generates multiple versions of p
 - **Data Storage**: Stores generated product information, clicks in a database for easy retrieval and analysis.
 
 ## Folder Structure
-├── ab-testing-with-llm/
-│├── images/                     # Directory containing product images 
-|├── llm.py                      # Main script for generating and inserting LLM-based product titles and descriptions
-|├── app.py                      # Main script for running website used for A/B Testing
-|├── README.md                   # Project documentation
-
+```
+ab-testing-with-llm/
+│
+├── images/                     # Directory containing product images 
+├── llm.py                      # Main script for generating and inserting LLM-based product titles and descriptions
+├── app.py                      # Main script for running website used for A/B Testing
+├── README.md                   # Project documentation
+```
 ## Installation
 
 1. Clone the repository:
