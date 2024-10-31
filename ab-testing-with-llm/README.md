@@ -52,6 +52,10 @@ ab-testing-with-llm/
 ## Demo
 
 
+https://github.com/user-attachments/assets/9c16036d-4ce1-436e-8f0c-6b1f85298d2a
+
+
+
 ## Further Steps
 
 After setting up the AI-Enhanced A/B Testing for Product Listings, the following steps can be taken to expand on the project and enhance its functionality:
