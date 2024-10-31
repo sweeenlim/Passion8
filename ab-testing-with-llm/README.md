@@ -50,7 +50,7 @@ ab-testing-with-llm/
 5.  **Output**: The script will launch a random version of the webpage for A/B testing and the clicks will be logged into the database for further analysis on the click-through rate (CTR).
 
 ## Demo
-[Watch video] (https://drive.google.com/file/d/19g-M5FfpSWycrMDOUFmrUdfxfNEh8xLO/view?usp=sharing)
+![Watch video] (https://drive.google.com/file/d/19g-M5FfpSWycrMDOUFmrUdfxfNEh8xLO/view?usp=sharing)
 
 ## Further Steps
 
