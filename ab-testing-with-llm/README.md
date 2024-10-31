@@ -11,13 +11,11 @@ This project implements an AI-based system that generates multiple versions of p
 - **Data Storage**: Stores generated product information, clicks in a database for easy retrieval and analysis.
 
 ## Folder Structure
-ab-testing-with-llm/
-│
-├── images/                     # Directory containing product images 
-├── llm.py                      # Main script for generating and inserting LLM-based product titles and descriptions
-├── app.py                      # Main script for running website used for A/B Testing
-├── README.md                   # Project documentation
-└── requirements.txt            # Python dependencies
+├── ab-testing-with-llm/
+│├── images/                     # Directory containing product images 
+|├── llm.py                      # Main script for generating and inserting LLM-based product titles and descriptions
+|├── app.py                      # Main script for running website used for A/B Testing
+|├── README.md                   # Project documentation
 
 ## Installation
 
@@ -50,7 +48,7 @@ ab-testing-with-llm/
 5.  **Output**: The script will launch a random version of the webpage for A/B testing and the clicks will be logged into the database for further analysis on the click-through rate (CTR).
 
 ## Demo
-![Watch video] (https://drive.google.com/file/d/19g-M5FfpSWycrMDOUFmrUdfxfNEh8xLO/view?usp=sharing)
+
 
 ## Further Steps
 
