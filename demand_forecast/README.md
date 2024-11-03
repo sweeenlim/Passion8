@@ -12,7 +12,7 @@ By integrating demand forecasting with inventory optimization, the project seeks
 ## Folder Structure
 ```
 demand-forecast/ │ 
-├── demand_forecast.ipynb # Jupyter Notebook for demand forecasting 
+├── demand_forecast.ipynb # Jupyter Notebook for demand forecasting and inventory optimisation
 ├── demand_forecasting.py # Python script for demand forecasting 
 ├── README.md # Project documentation 
 ├── forecast.csv # CSV file containing forecasted demand data
@@ -38,7 +38,7 @@ To achieve our objective, we will follow these steps:
 
 ### Running the Python Script
 ```sh
-        python demand_forecasting.py --test_data path_to_test_data --model_file model.txt --output_file path_to_output_file
+python demand_forecasting.py --test_data path_to_test_data --model_file model.txt --output_file path_to_output_file
 ```
 
 
