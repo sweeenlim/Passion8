@@ -39,12 +39,12 @@ def load_df():
 
 
 def load_product_categorisation_model():
-    json_file = open('/Users/marcus/Desktop/nus/Y4S1/DSA3101/Passion8/computer_vision/model.json', 'r')
+    json_file = open('../Passion8/computer_vision/model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights("/Users/marcus/Desktop/nus/Y4S1/DSA3101/Passion8/computer_vision/model.weights.h5")
+    loaded_model.load_weights("../Passion8/computer_vision/model.weights.h5")
     print("Loaded model from disk")
 
     loaded_model.compile(loss='sparse_categorical_crossentropy',
