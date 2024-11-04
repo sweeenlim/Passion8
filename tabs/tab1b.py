@@ -66,30 +66,28 @@ def load_product_details(products, product_name):
     # Add USD in front of the price
     products["actual_price"] = "USD " + products["actual_price"].astype(str) 
     products["discounted_price"] = "USD " + products["discounted_price"].astype(str) 
-    
-    product_details = products[products["product_name"] == product_name]
-    
-    product_name = product_details["product_name"].values[0]
-    product_category = product_details["category"].values[0]
-    product_price = product_details["actual_price"].values[0]
-    product_discounted = product_details["discounted_price"].values[0]
-    
-    return product_name, product_category, product_price, product_discounted
 
-def display_product_details(tab, product_name, product_category, product_price, product_discounted):
+
+    product_details = products[products["product_name"] == product_name]
+    product_details = product_details[["product_name", "category", "actual_price", "discounted_price"]]
+    # Rename columns to more readable names
+    product_details = product_details.rename(columns={
+        "product_name": "Product Name",
+        "category": "Category",
+        "actual_price": "Actual Price",
+        "discounted_price": "Discounted Price"
+    })
+    product_details = product_details.T
+    product_details.columns = ["Details"]
+    return product_details
+
+def display_product_details(tab, product_details):
     """Display product details on Streamlit."""
-    tab.markdown(f"""
-    <div style="font-size:16px;">
-        <strong>🛍️ Product Name:</strong> {product_name} <br>
-        <strong>🛒 Product Category:<strong> {product_category} <br>
-        <strong>💰 Product Price:<strong> {product_price}<br>
-        <strong>💲 Product Discounted Price:<strong> {product_discounted}<br>
-    </div>
-    """, unsafe_allow_html=True)
+    tab.dataframe(product_details)
 
 def display_tab1(tab1, actual_data, forecast_data, products):
     """Display content for tab1."""
-    # Extract the first part of the category before '|'
+   # Extract the first part of the category before '|'
     products['category'] = products['category'].apply(lambda x: x.split('|')[0])
     
     # Top level filters for product from product details
@@ -115,7 +113,8 @@ def display_tab1(tab1, actual_data, forecast_data, products):
         tab1.plotly_chart(fig)
         
         # Load and display product details
-        product_name, product_category, product_price, product_discounted = load_product_details(products, product)
-        display_product_details(tab1, product_name, product_category, product_price, product_discounted)
+
+        product_details = load_product_details(products, product)
+        display_product_details(tab1, product_details)
     else:
         tab1.write("No products found.")
