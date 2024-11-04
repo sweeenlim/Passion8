@@ -39,12 +39,19 @@ def load_df():
 
 
 def load_product_categorisation_model():
-    json_file = open('../Passion8/computer_vision/model.json', 'r')
+
+    # load cnn model
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(current_dir)
+    model_path = os.path.join(parent_dir,'computer_vision', 'model.json')
+    json_file = open(model_path, 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
+
     # load weights into new model
-    loaded_model.load_weights("../Passion8/computer_vision/model.weights.h5")
+    weights_path = os.path.join(parent_dir,'computer_vision', 'model.weights.h5')
+    loaded_model.load_weights(weights_path)
     print("Loaded model from disk")
 
     loaded_model.compile(loss='sparse_categorical_crossentropy',
