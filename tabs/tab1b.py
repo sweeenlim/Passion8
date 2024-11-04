@@ -67,6 +67,7 @@ def load_product_details(products, product_name):
     products["actual_price"] = "USD " + products["actual_price"].astype(str) 
     products["discounted_price"] = "USD " + products["discounted_price"].astype(str) 
 
+
     product_details = products[products["product_name"] == product_name]
     product_details = product_details[["product_name", "category", "actual_price", "discounted_price"]]
     # Rename columns to more readable names
@@ -112,6 +113,7 @@ def display_tab1(tab1, actual_data, forecast_data, products):
         tab1.plotly_chart(fig)
         
         # Load and display product details
+
         product_details = load_product_details(products, product)
         display_product_details(tab1, product_details)
     else:
