@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import math
 from dotenv import load_dotenv
 
 def load_data_tab2():
@@ -32,9 +33,9 @@ def display_product_details(tab, product_name, product_base_category, PED,
     with col1:
         col1.markdown(f"""
         <div style="font-size:16px;">
-            <strong>📊 Original Price:</strong> ${round(original_price, 3):.3f} <br>
-            <strong>🔮 Forecast Demand:</strong> {round(forecast_demand, 3)} <br>
-            <strong>💵 Revenue:</strong> ${round(revenue, 3):.3f} <br>
+            <strong>📊 Original Price:</strong> ${round(original_price, 2):.2f} <br>
+            <strong>🔮 Forecast Demand:</strong> {math.floor(forecast_demand)} <br>
+            <strong>💵 Revenue:</strong> ${round(revenue, 2):.2f} <br>
         </div>
         """, unsafe_allow_html=True)
 
@@ -42,19 +43,19 @@ def display_product_details(tab, product_name, product_base_category, PED,
     with col2:
         col2.markdown(f"""
         <div style="font-size:16px;">
-            <strong>🔖 Discounted Price:</strong> ${round(discounted_price, 3):.3f} <br>
-            <strong>📈 New Forecast Demand after Discount:</strong> {round(new_forecast_demand, 3)} <br>
-            <strong>💸 New Revenue:</strong> ${round(new_revenue, 3):.3f} <br>
+            <strong>🔖 Discounted Price:</strong> ${round(discounted_price, 2):.2f} <br>
+            <strong>📈 New Forecast Demand after Discount:</strong> {math.floor(new_forecast_demand)} <br>
+            <strong>💸 New Revenue:</strong> ${round(new_revenue, 2):.2f} <br>
         </div>
         """, unsafe_allow_html=True)
 
     # Calculate the revenue difference and round it
-    revenue_difference = round(new_revenue - revenue, 3)
+    revenue_difference = round(new_revenue - revenue, 2)
 
     # Display the revenue difference below the two columns
     tab.markdown(f"""
     <div style="text-align:center; font-size:16px; margin-top: 20px;">
-        <strong>📊 Revenue Difference:</strong> ${revenue_difference:.3f} <br>
+        <strong>📊 Revenue Difference:</strong> ${revenue_difference:.2f} <br>
     </div>
     """, unsafe_allow_html=True)
 
