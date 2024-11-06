@@ -1,5 +1,4 @@
 import os
-import psycopg2
 from dotenv import load_dotenv
 import sqlalchemy
 import pandas as pd
@@ -7,7 +6,8 @@ import numpy as np
 import datetime as dt
 from lifetimes import BetaGeoFitter, GammaGammaFitter
 import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 # load from .env file
@@ -86,11 +86,34 @@ def plot_historical_rfm():
     labels=['Low', 'Medium', 'High', 'Top']
     rfm_segment_counts = rfm['Segment'].value_counts().reindex(labels)
     
-    fig = plt.figure(figsize=(10, 6))
-    rfm_segment_counts.plot(kind='bar', color=['lightcoral', 'skyblue', 'lightgreen', 'gold'])
-    plt.title('RFM Customer Segments Barplot')
-    plt.xlabel('RFM Segment')
-    plt.ylabel('Number of Customers')
+    # Convert the series to a DataFrame for Plotly
+    rfm_segment_counts_df = rfm_segment_counts.reset_index()
+    rfm_segment_counts_df.columns = ['RFM Segment', 'Number of Customers']
+
+    # Create a bar plot using Plotly Express
+    fig = px.bar(
+        rfm_segment_counts_df,
+        x='RFM Segment',
+        y='Number of Customers',
+        title="RFM Customer Segments Barplot",
+        labels={'Number of Customers': 'Number of Customers'},
+        color='RFM Segment',
+        color_discrete_map={
+            "Low": "lightcoral",
+            "Medium": "skyblue",
+            "High": "lightgreen",
+            "Top": "gold"
+        }
+    )
+    
+    # Customize layout
+    fig.update_layout(
+        xaxis_title="RFM Segment",
+        yaxis_title="Number of Customers",
+        xaxis=dict(categoryorder='array', categoryarray=labels),
+        template="plotly_white"
+    )
+    
     return fig
 
 def plot_historical_cltv():
@@ -119,11 +142,40 @@ def plot_historical_cltv():
     cltv = cltv.sort_values(by="bin_segment", ascending=False)
     cltv_binned = cltv["bin_segment"].value_counts().reindex(labels)
 
-    fig = plt.figure(figsize=(10, 6))
-    cltv_binned.plot(kind='bar', color=['lightcoral', 'skyblue', 'lightgreen', 'gold'])
-    plt.title("Customer Segment Distribution")
-    plt.xlabel("CLTV Segment")
-    plt.ylabel("Number of Customers")
+    # fig = plt.figure(figsize=(10, 6))
+    # cltv_binned.plot(kind='bar', color=['lightcoral', 'skyblue', 'lightgreen', 'gold'])
+    # plt.title("Customer Segment Distribution")
+    # plt.xlabel("CLTV Segment")
+    # plt.ylabel("Number of Customers")
+
+    # Convert the series to a DataFrame for Plotly
+    cltv_binned_df = cltv_binned.reset_index()
+    cltv_binned_df.columns = ['CLTV Segment', 'Number of Customers']
+
+    # Create a bar plot using Plotly Express
+    fig = px.bar(
+        cltv_binned_df,
+        x='CLTV Segment',
+        y='Number of Customers',
+        title="Customer Segment Distribution",
+        labels={'Number of Customers': 'Number of Customers'},
+        color='CLTV Segment',
+        color_discrete_map={
+            "Low": "lightcoral",
+            "Medium": "skyblue",
+            "High": "lightgreen",
+            "Top": "gold"
+        }
+    )
+    
+    # Customize layout
+    fig.update_layout(
+        xaxis_title="CLTV Segment",
+        yaxis_title="Number of Customers",
+        xaxis=dict(categoryorder='array', categoryarray=labels),
+        template="plotly_white"
+    )
+    
     return fig
 
 
@@ -160,33 +212,45 @@ def bg_nbd():
 
     return bgf, cltv_prediction
 
-bgf, df = bg_nbd()
+# bgf, df = bg_nbd()
 
 # plot top n customers in num_weeks
 # n, num_weeks is dynamic
-def top_customers(n, num_weeks, df):
+def top_customers(n, num_weeks, df, bgf):
     top_customers_num_weeks = bgf.conditional_expected_number_of_purchases_up_to_time(num_weeks,  # number of weeks
                                                             df["frequency"],
                                                             df["recency"],
                                                             df["T"]).sort_values(ascending=False).head(n)
     return top_customers_num_weeks
 
-def plot_top_customers(n, num_weeks, df):
-    top_customers_num_weeks = top_customers(int(n), int(num_weeks), df)
 
-    fig = plt.figure(figsize=(10, 6))
-    top_customers_num_weeks.plot(kind='bar', color='skyblue')
-    plt.title(f'Top {n} Customers expected purchases in {num_weeks} Week')
-    plt.xlabel('Customer')
-    plt.ylabel('Expected Number of Purchases')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+def plot_top_customers(n, num_weeks, df, bgf):
+    top_customers_num_weeks = top_customers(int(n), int(num_weeks), df, bgf)
+    
+    top_customers_num_weeks = top_customers_num_weeks.reset_index()
+    top_customers_num_weeks.columns = ['user_id', 'expected_purchases'] 
+    
+    fig = px.bar(
+        top_customers_num_weeks,
+        x='user_id',
+        y='expected_purchases',
+        title=f'Top {n} Customers Expected Purchases in {num_weeks} Week(s)',
+        labels={'user_id': 'Customer', 'expected_purchases': 'Expected Number of Purchases'},
+        color='expected_purchases',
+        color_continuous_scale='Blues'
+    )
+    
+    fig.update_layout(
+        xaxis=dict(title='User ID', type='category'),
+        yaxis=dict(title='Expected Number of Purchases'),
+        coloraxis_showscale=False 
+    )
+    
     return fig
-
     
 # number of transactions expected by the company in num_weeks
 # num_weeks is dynamic
-def expected_num_transactions(num_weeks, df):
+def expected_num_transactions(num_weeks, df, bgf):
     res = []
     weeks = []
     for week in range(num_weeks):
@@ -194,30 +258,39 @@ def expected_num_transactions(num_weeks, df):
         res.append(num_transactions_in_week)
         weeks.append(week)
     return weeks, res
+    
+def plot_expected_num_transactions(num_weeks, df, bgf):
+    weeks, expected_transactions = expected_num_transactions(num_weeks, df, bgf)
 
-def plot_expected_num_transactions(num_weeks, df):
-    weeks, expected_transactions = expected_num_transactions(num_weeks, df)
-    fig = plt.figure(figsize=(10, 6))
-    plt.plot(weeks, expected_transactions, marker='o', color='b', linestyle='-')
-    plt.title(f'Expected Number of Transactions Over the Next {num_weeks} Weeks')
-    plt.xlabel('Week')
-    plt.ylabel('Expected Number of Transactions')
-    plt.xticks(weeks)
-    plt.grid(True)
-    plt.tight_layout()
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=weeks,
+        y=expected_transactions,
+        mode='lines+markers',
+        marker=dict(color='red'),
+        line=dict(color='red'),
+        name='Expected Transactions'
+    ))
+
+    fig.update_layout(
+        title=f'Expected Number of Transactions Over the Next {num_weeks} Weeks',
+        xaxis_title='Week',
+        yaxis_title='Expected Number of Transactions',
+        xaxis=dict(tickmode='linear', tickvals=weeks),  # Ensure all weeks are shown on x-axis
+        template='plotly_white'
+    )
+    
     return fig
 
-# plot_expected_num_transactions(4, df)
-    
 # gamma-gamma model
 def gamma_gamma(df):
     ggf = GammaGammaFitter(penalizer_coef=0.01)
     ggf.fit(df["frequency"], df["monetary"])
     return ggf
 
-ggf = gamma_gamma(df)
+# ggf = gamma_gamma(df)
 
-def cltv(df):
+def cltv(df, bgf, ggf):
     df["expected_average_profit"] = ggf.conditional_expected_average_profit(df["frequency"], df["monetary"])
 
     cltv = ggf.customer_lifetime_value(bgf,
@@ -241,66 +314,82 @@ def bin_cltv(df, labels, bins):
     df['clv_segment'] = pd.cut(df['clv'], bins=bins, labels=labels)
     return df
 
-def plot_vip(df, n):
-    df = cltv(df)
+def plot_vip(df, n, bgf, ggf):
+    df = cltv(df, bgf, ggf)
+
     top_vip_customers = df[['user_id', 'clv']].sort_values(by='clv', ascending=False).head(n)
-    fig = plt.figure(figsize=(10, 6))
-    sns.barplot(x='user_id', y='clv', data=top_vip_customers, 
-                palette='viridis', order=top_vip_customers.sort_values('clv', ascending=False)['user_id'])
-    plt.xlabel('User ID')
-    plt.ylabel('Predicted CLTV')
+    
+    fig = px.bar(
+        top_vip_customers,
+        x='user_id',
+        y='clv',
+        title=f'Top {n} VIP Customers by Predicted CLTV',
+        labels={'user_id': 'User ID', 'clv': 'Predicted CLTV'},
+        color='clv',
+        color_continuous_scale='Viridis'
+    ).update_yaxes(categoryorder="total descending")
+    
+    # Customize layout
+    fig.update_layout(
+        xaxis=dict(title='User ID', type='category'),
+        yaxis=dict(title='Predicted CLTV'),
+        coloraxis_showscale=False
+    )
+    
     return fig
 
-
 # streamlit outline
-def display_tab1a():
+def display_tab1a(tab1):
     '''Display content for tab1a'''
 
-    st.title("Customer Segmentation and VIP Prediction")
-    st.write("Analyze historical sales data, predict customer segments, and estimate customer lifetime value (CLTV) with the BG/NBD and Gamma-Gamma models.")
+    bgf, df = bg_nbd()
+    ggf = gamma_gamma(df)
+
+    tab1.title("Customer Segmentation and VIP Prediction")
+    tab1.write("Analyze historical sales data, predict customer segments, and estimate customer lifetime value (CLTV) with the BG/NBD and Gamma-Gamma models.")
 
     # RFM Analysis Plot
-    st.header("Historical RFM (Recency, Frequency, Monetary) Analysis")
-    st.write("Recency: Number of days since the customer's last purchase.")
-    st.write("Frequency: Total number of purchases made by the customer within the time frame. In this case, it is the throughout the year of 2019.")
-    st.write("Monetary: Sum of all the purchases made by the customer in the time frame.")
-    st.write("Each customer was assigned a score from 1 to 5 for Recency, Frequency, and Monetary. Summing these would form the overall RFM score.")
-    st.write("Segments: Low (2-5), Medium (6-8), High (9-11), Top (12-15)")  
+    tab1.header("Historical RFM (Recency, Frequency, Monetary) Analysis")
+    tab1.write("Recency: Number of days since the customer's last purchase.")
+    tab1.write("Frequency: Total number of purchases made by the customer within the time frame. In this case, it is the throughout the year of 2019.")
+    tab1.write("Monetary: Sum of all the purchases made by the customer in the time frame.")
+    tab1.write("Each customer was assigned a score from 1 to 5 for Recency, Frequency, and Monetary. Summing these would form the overall RFM score.")
+    tab1.write("Segments: Low (2-5), Medium (6-8), High (9-11), Top (12-15)")  
 
-    st.pyplot(plot_historical_rfm())  
+    tab1.plotly_chart(plot_historical_rfm())  
 
     # CLTV Prediction Plot
-    st.header("Historical Customer Lifetime Value (CLTV)")
-    st.write("CLTV = ((Average Order Value x Purchase Frequency) / Churn Rate) x Profit margin")
-    st.write("Components: ")
-    st.write("Average Order Value: Total revenue divided by the number of orders.")
-    st.write("Purchase Frequency: Total orders divided by total customers.")
-    st.write("Churn Rate: Ratio of customers with no repeat orders.")
-    st.write("Profit Margin: Set to 20%, based on Amazon seller average margins.")
-    st.write("")
-    st.pyplot(plot_historical_cltv())
+    tab1.header("Historical Customer Lifetime Value (CLTV)")
+    tab1.write("CLTV = ((Average Order Value x Purchase Frequency) / Churn Rate) x Profit margin")
+    tab1.write("Components: ")
+    tab1.write("Average Order Value: Total revenue divided by the number of orders.")
+    tab1.write("Purchase Frequency: Total orders divided by total customers.")
+    tab1.write("Churn Rate: Ratio of customers with no repeat orders.")
+    tab1.write("Profit Margin: Set to 20%, based on Amazon seller average margins.")
+ 
+    tab1.plotly_chart(plot_historical_cltv())
 
     # Top N Customers' Expected Purchases in X Weeks
-    st.header("Predicted Highest Purchasing Customers in Future Weeks")
-    st.write("The BG/NBD model is a probabilistic model used to predict a customer’s future purchase behavior based on their past transactional data.")
-    top_num_customers = st.number_input("Enter the number of customers:", step=1, min_value=1, value=10)
-    top_num_weeks = st.number_input("Enter the number of weeks:", step=1, min_value=1)
+    tab1.header("Predicted Highest Purchasing Customers in Future Weeks")
+    tab1.write("The BG/NBD model is a probabilistic model used to predict a customer’s future purchase behavior based on their past transactional data.")
+    top_num_customers = tab1.number_input("Enter the number of customers:", step=1, min_value=1, value=10)
+    top_num_weeks = tab1.number_input("Enter the number of weeks:", step=1, min_value=1)
 
     if top_num_customers > 0 and top_num_weeks > 0:
-        st.pyplot(plot_top_customers(top_num_customers, top_num_weeks, df))
+        tab1.plotly_chart(plot_top_customers(top_num_customers, top_num_weeks, df, bgf))
 
     # Expected Number of Total Purchases in X Weeks
-    st.header("Predicted Number of Purchases in Future Weeks")
-    expected_num_weeks = st.number_input("Enter the number of weeks:", step=1, min_value=1, value=4)
+    tab1.header("Predicted Number of Purchases in Future Weeks")
+    expected_num_weeks = tab1.number_input("Enter the number of weeks:", step=1, min_value=1, value=4)
 
     if expected_num_weeks > 0:
-        st.pyplot(plot_expected_num_transactions(expected_num_weeks, df))
+        tab1.plotly_chart(plot_expected_num_transactions(expected_num_weeks, df, bgf))
 
-    # 6. Top n VIPs Prediction Plot
-    st.header("VIP Customers Prediction")
-    st.write("The Gamma-Gamma submodel is used to predict the monetary value of customer transactions, given that the customer is active.")
-    st.write("ustomer Lifetime Value (CLTV): By multiplying the frequency of future transactions (from the BG/NBD model) with the expected transaction value (from the Gamma-Gamma model), we can predict each customer’s lifetime value.")
-    n_vip = st.number_input("Enter the number of customers:", step=1, min_value=1, value=10)
+    # Top n VIPs Prediction
+    tab1.header("VIP Customers Prediction")
+    tab1.write("The Gamma-Gamma submodel is used to predict the monetary value of customer transactions, given that the customer is active.")
+    tab1.write("ustomer Lifetime Value (CLTV): By multiplying the frequency of future transactions (from the BG/NBD model) with the expected transaction value (from the Gamma-Gamma model), we can predict each customer’s lifetime value.")
+    n_vip = tab1.number_input("Enter the number of customers:", step=1, value=10)
 
     if n_vip > 0:
-        st.pyplot(plot_vip(df, n_vip))
+        tab1.plotly_chart(plot_vip(df, n_vip, bgf, ggf))

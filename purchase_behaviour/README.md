@@ -12,7 +12,6 @@ Here is an overview of the folder structure:
 - README.md: Project documentation
 - purchase_behaviour.ipynb: Jupyter notebook for customer behaviour analysis and segmentation
 - vip_prediction.ipynb: Jupyter notebook for vip prediction (Bonus)
-- purchase_behaviour.py: Python script for both purchase_behaviour.ipynb and vip_prediction.ipynb
 
 ## Approach
 **purchase_behaviour.ipynb**
