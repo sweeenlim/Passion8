@@ -1,12 +1,9 @@
 import pandas as pd
-from sentence_transformers import SentenceTransformer, util
-from fuzzywuzzy import process
 import psycopg2
 from dotenv import load_dotenv
 import os
 import streamlit as st
 from h2ogpte import H2OGPTE
-
 
 # Explicitly specify the path to the .env file
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
@@ -22,6 +19,7 @@ client = H2OGPTE(
 )
 
 collection_id = h20_collection_id
+
 
 def display_ai_chatbot_tab(tab):
     """Displays the AI Chatbot content within the specified Streamlit tab."""
@@ -52,6 +50,7 @@ def display_ai_chatbot_tab(tab):
             with client.connect(chat_session_id) as session:
                 reply = session.query(
                     message=user_input,  # Use the actual user input here
+                    llm='gpt-4o',
                     rag_config={
                         "rag_type": "rag",
                     },
@@ -64,11 +63,12 @@ If the customer’s query is vague or lacks specific details, politely ask clari
 - **product_name**: Contains the name of each product in the collection.
 - **product_id**: A unique identifier for each product.
 - **about_product**: A brief description of each product.
-- **img_link**: The URL to each product’s image.
+
 
 ### Response Instructions
 - Provide a friendly, brief explanation of why the recommended product is a good fit for the customer.
 - Include the product’s name (from **product_name**), followed by the product ID (from **product_id**) in parentheses.
+- Please include the image link of the product to display it in the chat if you can find it online on amazon website.
 
 ### Response Format
 Your response should follow this structure for each recommendation:
