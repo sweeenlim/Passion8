@@ -66,7 +66,7 @@ pillow
 pipreqs==0.5.0
 pipreqsnb==0.2.4
 platformdirs==4.3.3
-plotly==5.24.1
+plotly
 prettytable==3.11.0
 prompt_toolkit==3.0.47
 psutil==6.0.0
@@ -89,7 +89,7 @@ requests==2.32.3
 rpds-py==0.20.0
 s3transfer==0.10.3
 scikit-learn==1.5.2
-scipy==1.14.1
+scipy
 sdmetrics==0.16.0
 sdv==1.17.1
 seaborn==0.13.2
