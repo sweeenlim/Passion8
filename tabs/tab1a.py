@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-import sqlalchemy
 import pandas as pd
 import numpy as np
 import datetime as dt
@@ -9,6 +8,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import sqlalchemy
 
 # load from .env file
 current_dir = os.getcwd()
@@ -36,29 +36,31 @@ def create_df(table_name):
         '''
         
         df = pd.read_sql(query, con=connection)
+        if table_name=="users":
+            df = df.rename(columns={"user_id": "cust_id"})
         return df
     except Exception as e:
         print("An error occurred:", e)
         connection.rollback() 
     finally:
-        connection.close()  
+        connection.close() 
 
 def create_full_table():
     full_table = create_df('online_sales')
     tables = {'products': 'product_id',
-              'users': 'user_id',
+              'users': 'cust_id',
               'ratings': 'product_id'
               }
     for key, value in tables.items():
         df = create_df(key)
         full_table = pd.merge(full_table, df, on=value, how='inner')
-
+    
     full_table['total_price'] = np.where(
-    full_table['Coupon_Status'] == 'Used',
-    full_table['Quantity'] * full_table['actual_price'] * (1 - full_table['Discount_pct']),
-    full_table['Quantity'] * full_table['actual_price']
+    full_table['coupon_status'] == 'Used',
+    full_table['quantity'] * full_table['actual_price'] * (1 - full_table['discount_percentage_x']),
+    full_table['quantity'] * full_table['actual_price']
     )
-
+    full_table['date'] = pd.to_datetime(full_table['date'], errors='coerce')
     return full_table
 
 def plot_historical_rfm():
@@ -67,7 +69,7 @@ def plot_historical_rfm():
 
     # Set a dummy reference date for recency calculations
     reference_date = pd.to_datetime('2020-01-01')
-    rfm = df.groupby('user_id').agg({
+    rfm = df.groupby('cust_id').agg({
         'date': lambda x: (reference_date - x.max()).days,  
         'transaction_id': 'count',                         
         'total_price': 'sum'                             
@@ -119,13 +121,13 @@ def plot_historical_rfm():
 def plot_historical_cltv():
     df = create_full_table()
     # Aggregate data at the customer level
-    cltv = df.groupby('user_id').agg({
+    cltv = df.groupby('cust_id').agg({
         'transaction_id': 'nunique',           # Number of orders (Frequency)
         'total_price': 'sum',                  # Total revenue (Monetary)           
         'product_id': 'nunique',               # Number of unique products purchased
         'date': 'max'
     }).reset_index()
-    cltv.columns = ['user_id', 'total_orders', 'total_revenue', 'unique_products', 'last_purchase_date']
+    cltv.columns = ['cust_id', 'total_orders', 'total_revenue', 'unique_products', 'last_purchase_date']
 
     cltv['AOV'] = cltv['total_revenue'] / cltv['total_orders']
     cltv['purchase_frequency'] = cltv['total_orders']/(cltv.shape[0])
@@ -184,7 +186,7 @@ def bg_nbd():
     today_date = dt.datetime(2020, 1, 1)
     sales = create_full_table()
 
-    cltv_prediction = sales.groupby('user_id').agg({
+    cltv_prediction = sales.groupby('cust_id').agg({
         'date': [min, max],
         'transaction_id': 'nunique', 
         'total_price': 'sum',
@@ -228,14 +230,14 @@ def plot_top_customers(n, num_weeks, df, bgf):
     top_customers_num_weeks = top_customers(int(n), int(num_weeks), df, bgf)
     
     top_customers_num_weeks = top_customers_num_weeks.reset_index()
-    top_customers_num_weeks.columns = ['user_id', 'expected_purchases'] 
+    top_customers_num_weeks.columns = ['cust_id', 'expected_purchases'] 
     
     fig = px.bar(
         top_customers_num_weeks,
-        x='user_id',
+        x='cust_id',
         y='expected_purchases',
         title=f'Top {n} Customers Expected Purchases in {num_weeks} Week(s)',
-        labels={'user_id': 'Customer', 'expected_purchases': 'Expected Number of Purchases'},
+        labels={'cust_id': 'Customer', 'expected_purchases': 'Expected Number of Purchases'},
         color='expected_purchases',
         color_continuous_scale='Blues'
     )
@@ -303,7 +305,7 @@ def cltv(df, bgf, ggf):
                                     discount_rate=0.01)
     cltv = cltv.reset_index()
 
-    df_final = df.merge(cltv, on="user_id", how="left")
+    df_final = df.merge(cltv, on="cust_id", how="left")
     # cltv_final["segment"]=pd.qcut(cltv_final["clv"],4,labels=["Low","Medium","High","Top"])
     return df_final
 
@@ -317,14 +319,14 @@ def bin_cltv(df, labels, bins):
 def plot_vip(df, n, bgf, ggf):
     df = cltv(df, bgf, ggf)
 
-    top_vip_customers = df[['user_id', 'clv']].sort_values(by='clv', ascending=False).head(n)
+    top_vip_customers = df[['cust_id', 'clv']].sort_values(by='clv', ascending=False).head(n)
     
     fig = px.bar(
         top_vip_customers,
-        x='user_id',
+        x='cust_id',
         y='clv',
         title=f'Top {n} VIP Customers by Predicted CLTV',
-        labels={'user_id': 'User ID', 'clv': 'Predicted CLTV'},
+        labels={'cust_id': 'User ID', 'clv': 'Predicted CLTV'},
         color='clv',
         color_continuous_scale='Viridis'
     ).update_yaxes(categoryorder="total descending")
