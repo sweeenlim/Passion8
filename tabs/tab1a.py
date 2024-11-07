@@ -390,7 +390,7 @@ def display_tab1a(tab1):
     # Top n VIPs Prediction
     tab1.header("VIP Customers Prediction")
     tab1.write("The Gamma-Gamma submodel is used to predict the monetary value of customer transactions, given that the customer is active.")
-    tab1.write("ustomer Lifetime Value (CLTV): By multiplying the frequency of future transactions (from the BG/NBD model) with the expected transaction value (from the Gamma-Gamma model), we can predict each customer’s lifetime value.")
+    tab1.write("Customer Lifetime Value (CLTV): By multiplying the frequency of future transactions (from the BG/NBD model) with the expected transaction value (from the Gamma-Gamma model), we can predict each customer’s lifetime value.")
     n_vip = tab1.number_input("Enter the number of customers:", step=1, value=10)
 
     if n_vip > 0:
