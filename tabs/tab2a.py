@@ -175,6 +175,7 @@ def display_tab2a(tab2, df):
         hovermode="x unified"                 # Unified hover mode
     )
     tab2.plotly_chart(fig)
+    tab2.write("Churn rate is defined quarterly. For example, a user that makes a transaction in the previous quarter but not in the next quarter will be marked as churned.")
 
 def display_tab2b(tab2, df):
     df['coupon_status'] = df['coupon_status'].fillna('Not Used')
