@@ -1,7 +1,3 @@
-import pandas as pd
-from sentence_transformers import SentenceTransformer, util
-from fuzzywuzzy import process
-import psycopg2
 from dotenv import load_dotenv
 import os
 import streamlit as st

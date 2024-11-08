@@ -5,7 +5,7 @@ from tabs.tab3a import load_data_wy, display_tab3a, display_tab3b, display_tab3c
 
 def main():
     """Main function to run the Streamlit app."""
-    st.set_page_config(page_title="Subgroup A", page_icon="📝")
+    st.set_page_config(page_title="Subgroup A", page_icon="📝",layout='wide')
     st.markdown("# Subgroup A")
 
     tab1, tab2, tab3 = st.tabs(["🔍Customer Analysis", "📉 Customer Churn Rates","📬Marketing Channel Analysis"])

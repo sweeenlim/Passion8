@@ -14,6 +14,7 @@ APScheduler==3.10.4
 asttokens==2.4.1
 astunparse==1.6.3
 attrs==24.2.0
+autograd==1.7.0
 backcall==0.2.0
 bayesian-optimization==1.4.1
 beautifulsoup4==4.12.2
@@ -48,6 +49,7 @@ decorator==5.1.1
 deepecho==0.6.0
 defusedxml==0.7.1
 Deprecated==1.2.14
+deptry==0.20.0
 dill==0.3.8
 distro==1.9.0
 docopt==0.6.2
@@ -117,7 +119,7 @@ kiwisolver==1.4.7
 langcodes==3.4.0
 language_data==1.2.0
 libclang==18.1.1
-Lifetimes==0.2.2.2
+Lifetimes==0.11.3
 lightgbm==4.5.0
 limits==3.13.0
 lm-dataformat==0.0.20
@@ -214,7 +216,7 @@ s3transfer==0.10.3
 sacrebleu==2.4.3
 safetensors==0.4.5
 scikit-learn==1.5.2
-scipy==1.13.1
+scipy==1.14.1
 sdmetrics==0.16.0
 sdv==1.17.1
 seaborn==0.13.2
