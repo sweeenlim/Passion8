@@ -366,7 +366,7 @@ def summarize_description(description):
     summary_prompt = f"Summarize the following product description concisely:\n\n{description}"
 
     # Start a chat session for summarization
-    chat_session_id = client.create_chat_session_on_default_collection()
+    chat_session_id = client.create_chat_session()
     with client.connect(chat_session_id) as session:
         reply = session.query(summary_prompt, timeout=60)
     
@@ -448,7 +448,7 @@ def generate_personalized_email_h2o(user_id):
     """
 
     # Start a chat session
-    chat_session_id = client.create_chat_session_on_default_collection()
+    chat_session_id = client.create_chat_session()
 
     # Send the prompt to the model within the chat session
     with client.connect(chat_session_id) as session:
