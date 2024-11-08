@@ -1,11 +1,14 @@
 import base64
+import os
 import streamlit as st
 import streamlit.components.v1 as com
 
 st.set_page_config(page_title="Passion8", page_icon="8️⃣", initial_sidebar_state="collapsed")
 
 # Encode the background image
-background_image = base64.b64encode(open("/Users/marcus/Desktop/nus/Y4S1/DSA3101/Passion8/pages/assets/passion8.png", "rb").read()).decode()
+current_dir = os.path.dirname(os.path.abspath(__file__))
+img_path = os.path.join(current_dir, 'pages/assets', 'passion8.png')
+background_image = base64.b64encode(open(img_path, "rb").read()).decode()
 
 # Add CSS with fixed background
 st.markdown(
