@@ -332,7 +332,7 @@ def display_tab3e(tab3, sales_data):
         basket = basket.applymap(lambda x: 1 if x > 0 else 0)
 
         # Slider for min_support in Streamlit
-        min_support = st.slider("Select minimum support threshold", min_value=0.001, max_value=0.020, value=0.005, step=0.001)
+        min_support = st.slider("Select minimum support threshold", min_value=0.001, max_value=0.020, value=0.005, step=0.001,format="%f")
 
         # Generate frequent itemsets and association rules based on min_support
         frequent_itemsets = apriori(basket, min_support=min_support, use_colnames=True)
