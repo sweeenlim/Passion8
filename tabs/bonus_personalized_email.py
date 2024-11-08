@@ -34,7 +34,7 @@ df = pd.merge(online_sales, products, on='product_id', how='left')
 
 
 ##### Product Recommendations #####
-def user_based_recommendation(cust_id, df, top_n=5):
+def user_based_recommendation(cust_id, df, top_n=3):
     """
     Recommend top N products for a given user based on user similarity.
 
@@ -469,7 +469,7 @@ def display_personalized_email_tab(tab):
     tab.write("Generate personalized email content for users based on their preferences.")
     
     # Display user selection dropdown
-    user_id = tab.selectbox("Select User ID:", users['user_id'].tolist())
+    user_id = tab.selectbox("Select User ID:", online_sales['cust_id'].unique().tolist())
     
     # Generate personalized email content
     if tab.button("Generate Email"):
