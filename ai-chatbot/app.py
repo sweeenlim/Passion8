@@ -9,7 +9,7 @@ parent_dir = os.path.dirname(current_dir)
 
 load_dotenv(f'{parent_dir}/.env')
 
-h2o_api = os.getenv('H2O_API_KEY')
+h2o_api = os.getenv('H2O_API_KEY_CHATBOT')
 h20_collection_id = os.getenv('H2O_PRODUCTS_COLLECTION_ID')
 
 # Initialize the H2OGPTE client

@@ -26,7 +26,7 @@ st.markdown(
     .title {
         font-family: 'Magz', sans-serif;
         color: #196ddd;
-        font-size: 8vw;
+        font-size: 6.4vw;
         font-weight: normal;
         height: 100px;
     }
