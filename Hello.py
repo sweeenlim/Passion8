@@ -2,72 +2,100 @@ import base64
 import streamlit as st
 import streamlit.components.v1 as com
 
+st.set_page_config(page_title="Passion8", page_icon="8️⃣", initial_sidebar_state="collapsed")
 
-# Embed the animation
-st.markdown('<div class="center-lottie">', unsafe_allow_html=True)
-com.iframe("https://lottie.host/embed/57930a62-cb53-47b8-b028-a287a7715222/RskPzQ3i5e.json", width=300)
-st.markdown('</div>', unsafe_allow_html=True)
+# Encode the background image
+background_image = base64.b64encode(open("/Users/marcus/Desktop/nus/Y4S1/DSA3101/Passion8/pages/assets/passion8.png", "rb").read()).decode()
 
-# Set the page background
+# Add CSS with fixed background
 st.markdown(
     f"""
     <style>
+    /* Main container settings */
+    [data-testid="stAppViewContainer"] {{
+        height: 100vh;
+        overflow: hidden;
+        
+    }}
+    
+    /* Background image settings */
     [data-testid="stMain"] {{
-        background: url(data:image/png;base64,{base64.b64encode(open("/Users/marcus/Desktop/nus/Y4S1/DSA3101/Passion8/pages/assets/passion8.png", "rb").read()).decode()});
-        background-size: cover;          /* Ensures the image covers the container */
-        background-repeat: no-repeat;    /* Prevents the image from tiling */
-        background-position: bottom;     /* Centers the image in the container */
+        background: url(data:image/png;base64,{background_image});
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: bottom;
+        overflow: hidden;
     }}
 
-
-    [data-testid="stHeader"]{{
+    /* Header transparency */
+    [data-testid="stHeader"] {{
         opacity: 0.5;
     }}
+    
+    /* Content layout */
+    .main {{
+        padding-top: 0 !important;
+    }}
+    
+    /* Center content */
+    .center-content {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }}
 
+    /* Lottie animation container */
+    .center-lottie {{
+        display: flex;
+        justify-content: center;
+    }}
+    </style>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-st.markdown("<br><br><br><br><br><br><br><br>", unsafe_allow_html=True)
+# Wrap content in a centered container
+st.markdown('<div class="center-content">', unsafe_allow_html=True)
 
+# Embed the animation
+st.markdown('<div class="center-lottie">', unsafe_allow_html=True)
+com.iframe("https://lottie.host/embed/57930a62-cb53-47b8-b028-a287a7715222/RskPzQ3i5e.json",height=160, width=300)
+st.markdown('</div>', unsafe_allow_html=True)
 
-col1, col2, col3, col4 = st.columns(4)
+# Add some spacing
+st.markdown("<br><br><br><br><br><br><br><br><br>", unsafe_allow_html=True)
+
+# Create columns for links
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.page_link('pages/1_📈_Subgroup_A.py', label=':blue[**Customer Analysis**]', use_container_width=False)
+    st.page_link('pages/1_📈_Subgroup_A.py', label=':blue-background[**Subgroup A**]', use_container_width=False)
 
 with col2:
-    st.page_link('pages/1_📈_Subgroup_A.py', label=':blue[**Customer Churn Rates**]', use_container_width=False)
+    st.page_link('pages/2_📊_Subgroup_B.py', label=':blue-background[**Subgroup B**]', use_container_width=False)
 
 with col3:
-    st.page_link('pages/1_📈_Subgroup_A.py', label=':blue[**Marketing Channels**]', use_container_width=False)
+    st.page_link('pages/3_⭐_Bonus.py', label=':blue-background[**Bonus**]', use_container_width=False)
+
+# Create three columns for words
+col4, col5, col6 = st.columns(3)
+        
+# Define lists of words for each column
+words_col4 = ["Customer Analysis", "Customer Churn Rates", "Marketing Channel Analysis"]
+words_col5 = ["Demand Forecase", "Pricing Strategies", "Supply Chain Efficiency"]
+words_col6 = ["AI Reccomendation Bot", "Computer Vision", "Semtiment Analysis"]
 
 with col4:
-    st.page_link('pages/2_📊_Subgroup_B.py', label=':blue[**Demand Forecast**]', use_container_width=False)
-
-
-col5, col6, col7, col8,= st.columns(4)
+    for word in words_col4:
+        st.markdown(f"<span style='color:#00008B'>- {word}</span>", unsafe_allow_html=True)
 
 with col5:
-    st.page_link('pages/2_📊_Subgroup_B.py', label=':blue[**Pricing Strategies**]', use_container_width=False)
+    for word in words_col5:
+        st.markdown(f"<span style='color:#00008B'>- {word}</span>", unsafe_allow_html=True)
 
 with col6:
-    st.page_link('pages/2_📊_Subgroup_B.py', label=':blue[**Supply Chain Efficiency**]', use_container_width=False)
+    for word in words_col6:
+        st.markdown(f"<span style='color:#00008B'>- {word}</span>", unsafe_allow_html=True)
 
-with col7:
-    st.page_link('pages/3_⭐_Bonus.py', label=':blue[**Supply Chain Efficiency**]', use_container_width=False)
-
-with col8:
-    st.page_link('pages/3_⭐_Bonus.py', label=':blue[**Sentiment Analysis**]', use_container_width=False)
-
-
-col9, col10, col11, = st.columns(3)
-
-with col9:
-    st.page_link('pages/3_⭐_Bonus.py', label=':blue[**AI Reccomendation Bot**]', use_container_width=False)
-
-with col10:
-    st.page_link('pages/3_⭐_Bonus.py', label=':blue[**Computer Vision**]', use_container_width=False)
-
-# with col11:
-#     st.page_link('pages/3_⭐_Bonus.py', label=':blue[**Computer Vision**]', use_container_width=False)
+# Close the centered container
+st.markdown('</div>', unsafe_allow_html=True)
