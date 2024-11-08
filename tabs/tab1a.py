@@ -144,12 +144,6 @@ def plot_historical_cltv():
     cltv = cltv.sort_values(by="bin_segment", ascending=False)
     cltv_binned = cltv["bin_segment"].value_counts().reindex(labels)
 
-    # fig = plt.figure(figsize=(10, 6))
-    # cltv_binned.plot(kind='bar', color=['lightcoral', 'skyblue', 'lightgreen', 'gold'])
-    # plt.title("Customer Segment Distribution")
-    # plt.xlabel("CLTV Segment")
-    # plt.ylabel("Number of Customers")
-
     # Convert the series to a DataFrame for Plotly
     cltv_binned_df = cltv_binned.reset_index()
     cltv_binned_df.columns = ['CLTV Segment', 'Number of Customers']
@@ -214,7 +208,7 @@ def bg_nbd():
 
     return bgf, cltv_prediction
 
-# bgf, df = bg_nbd()
+
 
 # plot top n customers in num_weeks
 # n, num_weeks is dynamic
@@ -290,7 +284,6 @@ def gamma_gamma(df):
     ggf.fit(df["frequency"], df["monetary"])
     return ggf
 
-# ggf = gamma_gamma(df)
 
 def cltv(df, bgf, ggf):
     df["expected_average_profit"] = ggf.conditional_expected_average_profit(df["frequency"], df["monetary"])
@@ -306,7 +299,6 @@ def cltv(df, bgf, ggf):
     cltv = cltv.reset_index()
 
     df_final = df.merge(cltv, on="cust_id", how="left")
-    # cltv_final["segment"]=pd.qcut(cltv_final["clv"],4,labels=["Low","Medium","High","Top"])
     return df_final
 
 # segmentize and plot cltv
