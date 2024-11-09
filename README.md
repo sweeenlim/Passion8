@@ -62,13 +62,13 @@ With these features, Passion8 equips e-commerce businesses with the tools to mak
 Using Docker simplifies deployment by ensuring a consistent environment. Follow these steps to set up and run the project in a Docker container. 
 
 
-     ```bash
-     docker-compose build
-     ```
+```bash
+docker-compose build
+```
 
-     ```bash
-     docker-compose up
-     ```
+```bash
+docker-compose up
+```
 
 Once everything is set up correctly, you can go to `http://localhost:8508/` to access the WebUI
 
