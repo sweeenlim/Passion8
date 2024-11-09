@@ -104,15 +104,11 @@ To Add
 To fully utilize Passion8, complete the following configuration steps and learn how to navigate through the key features.
 
 ### 1. Configure Environment Variables
-Before initializing the database, ensure the correct credentials and environment variables are set in the `.env` file located in the parent directory. Edit the file with the appropriate values:
+Before initializing the database, ensure the correct credentials and environment variables are set in the `.env` file located in the parent directory. We used H2o.ai which is an open-source platform for us to access LLMs. Edit the file with the appropriate values:
 
 ```env
-POSTGRES_PASSWORD = ''  # TOCHANGE
-POSTGRES_PORT_NO = 5432 
-POSTGRES_HOST = 'localhost'
-POSTGRES_DB = 'dsa3101'
-POSTGRES_USER = 'postgres'
-H2O_API_KEY = ''  # TOCHANGE
+H2O_API_CHATBOT = ''  # TOCHANGE
+H2O_API_KEY_EMAILER = '' # TOCHANGE
 H2O_PRODUCTS_COLLECTION_ID = ''  # TOCHANGE
 ```
 
