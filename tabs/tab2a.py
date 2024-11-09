@@ -13,7 +13,7 @@ parent_dir = os.path.dirname(current_dir)
 load_dotenv(f'{parent_dir}/.env')
 
 postgres_password = os.getenv('POSTGRES_PASSWORD')
-postgres_port_no = os.getenv('POSTGRES_PORT_NO')
+postgres_port_no = os.getenv('POSTGRES_PORT')
 host = os.getenv('POSTGRES_HOST')
 database = os.getenv('POSTGRES_DB')
 user = os.getenv('POSTGRES_USER')
