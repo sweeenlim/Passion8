@@ -65,6 +65,7 @@ Using Docker simplifies deployment by ensuring a consistent environment. Follow 
      ```bash
      docker-compose build
      ```
+
      ```bash
      docker-compose up
      ```
