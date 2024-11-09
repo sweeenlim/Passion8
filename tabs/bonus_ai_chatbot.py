@@ -8,7 +8,7 @@ from h2ogpte import H2OGPTE
 # Explicitly specify the path to the .env file
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
-h2o_api = os.getenv('H2O_API_KEY')
+h2o_api = os.getenv('H2O_API_KEY_CHATBOT')
 h20_collection_id = os.getenv('H2O_PRODUCTS_COLLECTION_ID')
 
 
