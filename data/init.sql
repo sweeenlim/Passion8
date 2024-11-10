@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS user_behaviour (
 
 
 -- Create the 'online_sales' table
-CREATE TABLE online_sales (
+CREATE TABLE IF NOT EXISTS online_sales (
     cust_id INT,
     transaction_id INT,
     date DATE,
@@ -72,7 +72,7 @@ CREATE TABLE online_sales (
 );
 
 -- Create the 'shipping_status' table
-CREATE TABLE shipping_status (
+CREATE TABLE IF NOT EXISTS shipping_status (
     user_id INT,
     transaction_id INT,
     date DATE,
@@ -88,7 +88,7 @@ CREATE TABLE shipping_status (
 );
 
 -- Create the 'shipping_history' table
-CREATE TABLE shipping_history (
+CREATE TABLE IF NOT EXISTS shipping_history (
     date DATE,
     shipping_id INT,
     status VARCHAR(255),
