@@ -58,15 +58,9 @@ def convert_date_columns(dataframes):
             dataframes[df_name][column] = pd.to_datetime(dataframes[df_name][column], format='%Y-%m-%d', errors='raise').dt.date
 
 def insert_data_to_db(dataframes, engine):
-    inspector = inspect(engine)
-    existing_tables = inspector.get_table_names()
-    
+    # Insert data into the database
     for table_name, df in dataframes.items():
-        if table_name not in existing_tables:
-            df.to_sql(table_name, engine, if_exists='append', index=False)
-            logging.info(f"Inserted data into {table_name} table")
-        else:
-            logging.info(f"Table {table_name} already exists, skipping data insertion")
+        df.to_sql(table_name, engine, if_exists='append', index=False)
 
 
 def main():
