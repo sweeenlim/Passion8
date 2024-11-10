@@ -6,3 +6,5 @@ data/source/*
 
 # Ignore cache files
 tabs/__pycache__/*
+
+.git
