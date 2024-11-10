@@ -3,6 +3,7 @@ FROM python:3.12.4-slim
 # Install PostgreSQL client and development libraries for psycopg2
 RUN apt-get update && apt-get install -y \
     libpq-dev \
+    postgresql-client \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
