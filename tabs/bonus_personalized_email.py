@@ -19,10 +19,13 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 #### Load environment variables ####
 h2o_api_key = os.getenv('H2O_API_KEY_EMAIL')
 postgres_password = os.getenv('POSTGRES_PASSWORD')
-postgres_port_no = os.getenv('POSTGRES_PORT_NO')
+postgres_port_no = os.getenv('POSTGRES_PORT')
 host = os.getenv('POSTGRES_HOST')
 database = os.getenv('POSTGRES_DB')
 user = os.getenv('POSTGRES_USER')
+
+# Download NLTK resources
+nltk.download('stopwords')
 
 #### Connect to PostgreSQL database and load relevant table ####
 engine = create_engine(f'postgresql://{user}:{postgres_password}@{host}:{postgres_port_no}/{database}')
