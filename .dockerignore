@@ -1,0 +1,8 @@
+# Ignore all Jupyter Notebook files
+*.ipynb
+
+# Ignore everything inside the data/cleaning directory
+data/source/*
+
+# Ignore cache files
+tabs/__pycache__/*
