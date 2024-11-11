@@ -2,19 +2,19 @@
 
 # Passion8 <br> E-commerce Performance Analysis and Optimization
 
-A data-driven framework leveraging AI and data analysis to optimize e-commerce operations. Built with end users in mind to improve customer experience and upscale business performance.
+A data-driven framework leveraging AI and data analysis to optimize e-commerce operations. Built with end users in mind to improve customer experience and upscale bgit usiness performance.
 
 [Project Overview](#project-overview) |
 [Set Up](#set-up) |
 [Live Demo](#live-demo) |
 [Usage Guidelines](#usage-guidelines) |
-[Feedback](https://github.com/freedytan/Passion8/issues) |
-[Wiki](https://github.com/freedytan/Passion8/)
+[Feedback](https://github.com/sweeenlim/Passion8/issues)
 
 [![Python 3.12.4](https://img.shields.io/badge/python-3.12.4-blue.svg)](https://www.python.org/downloads/release/python-3124/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-<a href="https://github.com/freedytan/Passion8" target="_blank">
-<img src="https://img.shields.io/badge/docker_pull-Passion8:latest-brightgreen" alt="docker pull ghcr.io/cinnamon/kotaemon:latest"></a>
+[![docker pull](https://img.shields.io/badge/docker_pull-Passion8:latest-brightgreen)](#set-up)
+[![wiki](https://img.shields.io/badge/Explore-Wiki-yellow)](https://github.com/sweeenlim/Passion8/wiki)
+
+
 
 </div>
 
