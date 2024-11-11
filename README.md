@@ -69,8 +69,9 @@ docker-compose build
 ```bash
 docker-compose up
 ```
+![completion-ss](images/completion_ss.jpg)
 
-Once everything is set up correctly, you can go to `http://localhost:8508/` to access the WebUI
+Once everything is set up correctly, you should set this on your terminal. You can go to `http://localhost:8501/` to access the WebUI.
 
 ### Without Docker
 
