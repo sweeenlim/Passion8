@@ -147,4 +147,4 @@ This will start the application at a URL, typically http://localhost:8501, which
 To stop the Streamlit app, return to the terminal where it is running and press `CTRL + C`.
 
 ## Contributors
-To add
+![group-photo](images/grp_photo.jpg)
