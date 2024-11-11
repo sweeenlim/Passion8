@@ -1,10 +1,15 @@
-# Ignore all Jupyter Notebook files
-*.ipynb
+# Python cache
+__pycache__/
+*.pyc
 
-# Ignore everything inside the data/cleaning directory
-data/source/*
+# Version control
+.git/
+.gitignore
 
-# Ignore cache files
-tabs/__pycache__/*
+# Virtual environments
+venv/
+.venv/
 
-.git
+# Logs
+*.log
+
