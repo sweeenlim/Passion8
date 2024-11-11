@@ -14,12 +14,10 @@ COPY . .
 
 RUN pip3 install --default-timeout=100 -r requirements.txt
 
-# Make the entrypoint script executable
-RUN chmod +x /app/entrypoint.sh
-
 EXPOSE 8501
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+# Healthcheck to ensure Streamlit is running
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
-# Set the entrypoint script
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Start Streamlit
+CMD ["streamlit", "run", "Hello.py"]
