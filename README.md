@@ -59,7 +59,7 @@ With these features, Passion8 equips e-commerce businesses with the tools to mak
 
 ### With Docker (recommended)
 
-Using Docker simplifies deployment by ensuring a consistent environment. Follow these steps to set up and run the project in a Docker container. 
+Using Docker simplifies deployment by ensuring a consistent environment. Follow this step to set up and run the project in a Docker container. 
 
 
 ```bash
