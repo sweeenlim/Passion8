@@ -119,6 +119,8 @@ Docker provides a reliable, consistent environment for deployment. Follow these 
    docker-compose up
    ```
 
+![completion-ss](images/completion_ss.jpg)
+
 Once everything is set up, you should see logs confirming the services are running. To access the WebUI, open [http://localhost:8501](http://localhost:8501) in your browser.
 
 ---
