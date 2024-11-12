@@ -82,18 +82,18 @@ For the purpose of this project, please approach any of our friendly contributor
 
 If you are using Docker, you *only* need to add the H2O API key and product collection ID in the `.env` file. Create a `.env` file in the project’s root directory and add the following:
 ```env
-H2O_API_KEY_CHATBOT= <your_h2o_api_key>
-H2O_PRODUCTS_COLLECTION_ID= <your_collection_id>
-H2O_API_KEY_EMAIL= <your_h2o_api_key>
+H2O_API_KEY_CHATBOT = <your_h2o_api_key>
+H2O_API_KEY_EMAIL = <your_h2o_api_key>
+H2O_PRODUCTS_COLLECTION_ID = <your_collection_id>
 ```
 
 #### For Local Setup
 
 If you are setting up the project locally, include *both* the H2O API details and PostgreSQL credentials in the `.env` file. Here’s an example structure:
 ```env
-H2O_API_KEY_CHATBOT= <your_h2o_api_key>
-H2O_PRODUCTS_COLLECTION_ID= <your_collection_id>
-H2O_API_KEY_EMAIL= <your_h2o_api_key>
+H2O_API_KEY_CHATBOT = <your_h2o_api_key>
+H2O_API_KEY_EMAIL = <your_h2o_api_key>
+H2O_PRODUCTS_COLLECTION_ID = <your_collection_id>
 POSTGRES_USER= 'postgres'
 POSTGRES_PASSWORD= <your_postgres_password>
 POSTGRES_DB= 'dsa3101'
