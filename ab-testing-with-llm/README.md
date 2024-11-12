@@ -19,18 +19,6 @@ ab-testing-with-llm/
 ├── app.py                      # Main script for running website used for A/B Testing
 ├── README.md                   # Project documentation
 ```
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/freedytan/Passion8.git
-    cd ab-testing-with-llm
-    ```
-
-2. Install the required dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
 
 ## Usage
 1. **Prepare Data**: Place your product image files in the [`images/`] directory.
