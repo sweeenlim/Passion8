@@ -55,8 +55,7 @@ With these features, Passion8 equips e-commerce businesses with the tools to mak
 
 ### System Requirements
 1. [Python](https://www.python.org/downloads/) >= 3.12.4
-2. [Docker](https://www.docker.com/): optional, if you [install with Docker](#with-docker-recommended)
-
+2. [Docker](https://www.docker.com/): optional, if you [install with Docker](#option-1-using-docker-recommended)
 
 
 # Project Setup Guide
@@ -133,7 +132,7 @@ If Docker isn’t available or preferred, you can set up the project locally usi
    Set up a new virtual environment to keep dependencies isolated:
    ```bash
    python -m venv .venv
-   source .venv/bin/activate  # On Windows, use `.venv\Scriptsctivate`
+   source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
    ```
 
 2. **Install Dependencies**  
