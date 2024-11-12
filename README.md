@@ -169,7 +169,7 @@ To Add
 To fully utilize Passion8, complete the following configuration steps and learn how to navigate through the key features.
 
 ### Configure Environment Variables
-Before initializing the database, ensure that correct credentials and environment variables are set in the `.env` file located in the parent directory. We used H2o.ai which is an open-source (and free!) platform for us to access LLMs. 
+Before running the project itself either with docker or locally, ensure that correct credentials and environment variables are set in the `.env` file located in the parent directory. We used H2o.ai which is an open-source (and free!) platform for us to access LLMs. 
 
 To run this project and reproduce the best results, feel free to reach out to any of our passionate contributors to obtain our specific API keys.
 
