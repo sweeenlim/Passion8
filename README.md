@@ -11,7 +11,7 @@ A data-driven framework leveraging AI and data analysis to optimize e-commerce o
 [Feedback](https://github.com/sweeenlim/Passion8/issues)
 
 [![Python 3.12.4](https://img.shields.io/badge/python-3.12.4-blue.svg)](https://www.python.org/downloads/release/python-3124/)
-[![docker pull](https://img.shields.io/badge/docker_pull-Passion8:latest-brightgreen)](#set-up)
+[![docker pull](https://img.shields.io/badge/docker_pull-Passion8:latest-brightgreen)](#option-1-using-docker-recommended)
 [![wiki](https://img.shields.io/badge/Explore-Wiki-yellow)](https://github.com/sweeenlim/Passion8/wiki)
 
 
@@ -57,40 +57,109 @@ With these features, Passion8 equips e-commerce businesses with the tools to mak
 1. [Python](https://www.python.org/downloads/) >= 3.12.4
 2. [Docker](https://www.docker.com/): optional, if you [install with Docker](#with-docker-recommended)
 
-### With Docker (recommended)
-
-Using Docker simplifies deployment by ensuring a consistent environment. Follow this step to set up and run the project in a Docker container. 
 
 
-```bash
-docker-compose up --build
-```
-![completion-ss](images/completion_ss.jpg)
+# Project Setup Guide
 
-Once everything is set up correctly, you should set this on your terminal. You can go to `http://localhost:8501/` to access the WebUI.
+This guide provides steps to clone the repository, configure environment variables, and set up the project either using Docker (recommended) or a local Python virtual environment.
 
-### Without Docker
+## Step 1: Clone the Repository and Configure Environment Variables
 
-1. Clone the project repository to your local machine:
+### 1. Clone the Repository
 
+Clone the project repository and navigate into the project directory:
 ```bash
 git clone https://github.com/sweeenlim/Passion8
 cd Passion8
 ```
 
-2. Create a Fresh Python Environment Set up a new Python environment to ensure that package dependencies don’t conflict with existing ones. Since our group has chosen to use `venv` for setting up Python environments, we will only include instructions for this method.
+### 2. Set Up the `.env` File
+
+Use .env.example as a template to get you started. 
+
+For the purpose of this project, please approach any of our friendly contributors to use our specific API keys if you are looking to run the project.
+
+#### For Docker Setup (recommended)
+
+If you are using Docker, you *only* need to add the H2O API key and product collection ID in the `.env` file. Create a `.env` file in the project’s root directory and add the following:
+```env
+H2O_API_KEY_CHATBOT= <your_h2o_api_key>
+H2O_PRODUCTS_COLLECTION_ID= <your_collection_id>
+H2O_PRODUCTS_COLLECTION_ID= <your_h2o_api_key>
+```
+
+#### For Local Setup
+
+If you are setting up the project locally, include *both* the H2O API details and PostgreSQL credentials in the `.env` file. Here’s an example structure:
+```env
+H2O_API_KEY_CHATBOT= <your_h2o_api_key>
+H2O_PRODUCTS_COLLECTION_ID= <your_collection_id>
+H2O_PRODUCTS_COLLECTION_ID= <your_h2o_api_key>
+POSTGRES_USER= 'postgres'
+POSTGRES_PASSWORD= <your_postgres_password>
+POSTGRES_DB= 'dsa3101'
+POSTGRES_HOST= 'localhost'
+POSTGRES_PORT= '5432'
+```
+
+## Step 2: Set Up the Project Environment
+
+You can either use Docker (recommended for a consistent setup) or set up a local environment using `venv` as detailed below.
+
+### Option 1: Using Docker (Recommended)
+
+Docker provides a reliable, consistent environment for deployment. Follow these steps to build and launch the project in Docker containers:
+
+1. **Build the Docker Image**
+   ```bash
+   docker-compose build
+   ```
+
+2. **Run the Docker Containers**
+   ```bash
+   docker-compose up
+   ```
+
+Once everything is set up, you should see logs confirming the services are running. To access the WebUI, open [http://localhost:8501](http://localhost:8501) in your browser.
+
+---
+
+### Option 2: Without Docker (Using a Virtual Environment)
+
+If Docker isn’t available or preferred, you can set up the project locally using a Python virtual environment. Since our team has chosen `venv` for Python environments, here’s how to proceed:
+
+
+1. **Create a New Python Environment**  
+   Set up a new virtual environment to keep dependencies isolated:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows, use `.venv\Scriptsctivate`
+   ```
+
+2. **Install Dependencies**  
+   With the virtual environment activated, install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Initialize the Database**
+To set up the database with the required tables and data:
+- Open the `db_init.ipynb` Jupyter notebook in the project directory.
+- Run all cells by selecting **Cell** > **Run All** to initialize the database.
+
+4. **Launch the Application**
+Start the application with Streamlit at http://localhost:8501:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+streamlit run Hello.py
 ```
 
-3. Install required packages into your `venv`
+## Next Steps
 
-```
-pip install -r requirements.txt
-```
-Once setup is complete, proceed to the [Usage Guidelines](#usage-guidelines) for configuration and usage instructions.
+Once setup is complete, refer to the [Usage Guidelines](#usage-guidelines) for detailed instructions on configuration and usage.
+
+This setup should provide a clean, ready-to-use environment for working with the project, either via Docker or locally.
+
 
 ## Live Demo
 
@@ -100,28 +169,10 @@ To Add
 
 To fully utilize Passion8, complete the following configuration steps and learn how to navigate through the key features.
 
-### 1. Configure Environment Variables
-Before initializing the database, ensure the correct credentials and environment variables are set in the `.env` file located in the parent directory. We used H2o.ai which is an open-source platform for us to access LLMs. Edit the file with the appropriate values:
+### Configure Environment Variables
+Before initializing the database, ensure that correct credentials and environment variables are set in the `.env` file located in the parent directory. We used H2o.ai which is an open-source (and free!) platform for us to access LLMs. 
 
-```env
-H2O_API_CHATBOT = ''  # TOCHANGE
-H2O_API_KEY_EMAILER = '' # TOCHANGE
-H2O_PRODUCTS_COLLECTION_ID = ''  # TOCHANGE
-```
-
-### 2. Initialize the Database
-To set up the database with the required tables and data:
-1. Open the `db_init.ipynb` Jupyter notebook in the project directory.
-2. Run all cells by selecting **Cell** > **Run All** to initialize the database.
-
-### 3. Launch the Application
-After configuring and initializing, start the application with Streamlit:
-
-```bash
-streamlit run Hello.py
-```
-
-This will start the application at a URL, typically http://localhost:8501, which you can open in your browser to access the interface.
+To run this project and reproduce the best results, feel free to reach out to any of our passionate contributors to obtain our specific API keys.
 
 ### Key Features and Usage
 
