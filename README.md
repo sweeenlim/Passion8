@@ -63,11 +63,7 @@ Using Docker simplifies deployment by ensuring a consistent environment. Follow 
 
 
 ```bash
-docker-compose build
-```
-
-```bash
-docker-compose up
+docker-compose up --build
 ```
 ![completion-ss](images/completion_ss.jpg)
 
@@ -78,7 +74,7 @@ Once everything is set up correctly, you should set this on your terminal. You c
 1. Clone the project repository to your local machine:
 
 ```bash
-git clone https://github.com/freedytan/Passion8
+git clone https://github.com/sweeenlim/Passion8
 cd Passion8
 ```
 
