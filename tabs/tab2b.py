@@ -4,7 +4,7 @@ import math
 from dotenv import load_dotenv
 
 def load_data_tab2():
-    return pd.read_csv("pricing strategies/forecast_with_ped.csv")
+    return pd.read_csv("pricing-strategies/forecast_with_ped.csv")
 
 def expected_revenue(price, discount, forecast_demand, ped):
     p_new = price * (1 - discount)

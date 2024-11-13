@@ -61,14 +61,14 @@ def create_line_chart(actual_product_data, forecast_product_data):
     
     return fig
 
-def load_product_details(products, product_name):
+def load_product_details(products, product_id):
     """Load product details from products.csv."""
     # Add USD in front of the price
     products["actual_price"] = "USD " + products["actual_price"].astype(str) 
     products["discounted_price"] = "USD " + products["discounted_price"].astype(str) 
 
 
-    product_details = products[products["product_name"] == product_name]
+    product_details = products[products["product_id"] == product_id]
     product_details = product_details[["product_name", "category", "actual_price", "discounted_price"]]
     # Rename columns to more readable names
     product_details = product_details.rename(columns={
@@ -78,12 +78,13 @@ def load_product_details(products, product_name):
         "discounted_price": "Discounted Price"
     })
     product_details = product_details.T
+    print(product_details)
     product_details.columns = ["Details"]
     return product_details
 
 def display_product_details(tab, product_details):
     """Display product details on Streamlit."""
-    tab.dataframe(product_details)
+    tab.dataframe(product_details,use_container_width=True)
 
 def display_tab1(tab1, actual_data, forecast_data, products):
     """Display content for tab1."""
@@ -114,7 +115,7 @@ def display_tab1(tab1, actual_data, forecast_data, products):
         
         # Load and display product details
 
-        product_details = load_product_details(products, product)
+        product_details = load_product_details(products, product_id)
         display_product_details(tab1, product_details)
     else:
         tab1.write("No products found.")
