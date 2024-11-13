@@ -38,7 +38,7 @@ H2O_PRODUCTS_COLLECTION_ID=your_h2o_collection_id
 
 1. Run the Streamlit application:
    ```bash
-   streamlit run app.py
+   streamlit run Hello.py
    ```
 
 2. Open the link displayed in your terminal to access the application (usually `http://localhost:8501`).
