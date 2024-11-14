@@ -59,7 +59,7 @@ async def get_product_recommendation(user_query: str):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
 @app.post("/grpb/demand_forecast", tags=["Demand Forecast"])
-async def predict_sales(test_data: UploadFile = File(...), model_file: UploadFile = File(...)):
+async def predict_sales(test_data: UploadFile = File(...), trained_model_file: UploadFile = File(...)):
     try:
         # Load test data
         test_df = pd.read_csv(StringIO((await test_data.read()).decode("utf-8")))
@@ -67,7 +67,7 @@ async def predict_sales(test_data: UploadFile = File(...), model_file: UploadFil
         # Save the model file temporarily to use it
         model_path = "/tmp/model.txt"
         with open(model_path, "wb") as f:
-            f.write(await model_file.read())
+            f.write(await trained_model_file.read())
 
         # Load model and make predictions
         predictions_df = load_model_and_predict(model_path, test_df)
