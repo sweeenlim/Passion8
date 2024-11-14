@@ -6,11 +6,12 @@ A data-driven framework leveraging AI and data analysis to optimize e-commerce o
 
 [Project Overview](#project-overview) |
 [Set Up](#set-up) |
-[Live Demo](#live-demo) |
 [Usage Guidelines](#usage-guidelines) |
+[API](#api) |
 [Feedback](https://github.com/sweeenlim/Passion8/issues)
 
 [![Python 3.12.4](https://img.shields.io/badge/python-3.12.4-blue.svg)](https://www.python.org/downloads/release/python-3124/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![docker pull](https://img.shields.io/badge/docker_pull-Passion8:latest-brightgreen)](#option-1-using-docker-recommended)
 [![wiki](https://img.shields.io/badge/Explore-Wiki-yellow)](https://github.com/sweeenlim/Passion8/wiki)
 
@@ -107,7 +108,7 @@ You can either use Docker (recommended for a consistent setup) or set up a local
 
 ### Option 1: Using Docker (Recommended)
 
-Docker provides a reliable, consistent environment for deployment. Follow these steps to build and launch the project in Docker containers:
+Docker provides a reliable, consistent environment for deployment. Open your Docker Desktop locally (important!) and follow these steps to build and launch the project in Docker containers:
 
 1. **Build the Docker Image**
    ```bash
@@ -161,11 +162,6 @@ Once setup is complete, refer to the [Usage Guidelines](#usage-guidelines) for d
 
 This setup should provide a clean, ready-to-use environment for working with the project, either via Docker or locally.
 
-
-## Live Demo
-
-To Add
-
 ## Usage Guidelines
 
 To fully utilize Passion8, complete the following configuration steps and learn how to navigate through the key features.
@@ -194,6 +190,95 @@ To run this project and reproduce the best results, feel free to reach out to an
 
 ### Stopping the Application
 To stop the Streamlit app, return to the terminal where it is running and press `CTRL + C`.
+
+## API 
+
+Using FastAPI framework, we provides a range of endpoints for our features for e-commerce analysis and optimization application. It includes functionality for sentiment analysis, product classification, personalized email generation, product recommendations, and demand forecasting.
+
+This API provides essential tools for e-commerce analysis and is designed to scale with additional modules and features as needed.
+
+### Endpoints
+
+#### 1. Analyze Sentiment
+
+**Endpoint**: `/bonus/analyse_sentiment`  
+**Method**: `POST`  
+**Tags**: `Bonus`  
+**Description**: Analyzes the sentiment of a given review text.
+
+**Request Body**:
+- `review` (str): The review text to analyze.
+
+**Response**:
+- `sentiment` (str): Returns "Positive", "Negative", or "Neutral" based on the sentiment score.
+
+#### 2. Classify Product Image
+
+**Endpoint**: `/bonus/classify_product`  
+**Method**: `POST`  
+**Tags**: `Bonus`  
+**Description**: Classifies a product image into a predefined category.
+
+**Request Body**:
+- `file` (UploadFile): The image file of the product.
+
+**Response**:
+- `product_category` (str): The predicted category of the product.
+
+#### 3. Search Similar Products
+
+**Endpoint**: `/bonus/search_similar_products`  
+**Method**: `POST`  
+**Tags**: `Bonus`  
+**Description**: Searches for similar products based on an uploaded product image.
+
+**Request Body**:
+- `file` (UploadFile): The image file of the product.
+- `number_of_products` (int): The number of similar products to return.
+
+**Response**:
+- `similar_products` (list): A list of URLs linking to similar products.
+
+#### 4. Generate Personalized Email
+
+**Endpoint**: `/bonus/generate_personalized_email`  
+**Method**: `POST`  
+**Tags**: `Bonus`  
+**Description**: Generates a personalized email for a user based on their `user_id`.
+
+**Request Body**:
+- `user_id` (int): The unique identifier of the user.
+
+**Response**:
+- `email_content` (str): The content of the personalized email.
+
+#### 5. Get Product Recommendation
+
+**Endpoint**: `/bonus/get_product_recommendation`  
+**Method**: `POST`  
+**Tags**: `Bonus`  
+**Description**: Provides product recommendations based on a user's query.
+
+**Request Body**:
+- `user_query` (str): The query or preferences specified by the user.
+
+**Response**:
+- `recommendation` (str): The recommended product(s) based on the user’s query.
+
+#### 6. Demand Forecasting
+
+**Endpoint**: `/grpb/demand_forecast`  
+**Method**: `POST`  
+**Tags**: `Demand Forecast`  
+**Description**: Predicts future sales based on uploaded test data and a trained model.
+
+**Request Body**:
+- `test_data` (UploadFile): CSV file with test data for prediction.
+- `trained_model_file` (UploadFile): The trained model file in binary format.
+
+**Response**:
+- `predictions` (list): A list of predicted sales records in JSON format.
+
 
 ## Contributors
 ![group-photo](images/grp_photo.jpg)
