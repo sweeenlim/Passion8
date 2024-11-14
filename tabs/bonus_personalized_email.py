@@ -125,7 +125,7 @@ def preprocess_text(text):
     
     return ' '.join(tokens)
 
-def content_based_recommendation(cust_id, transactions_df, products_df, top_n=5):
+def content_based_recommendation(cust_id, transactions_df, products_df, top_n=3):
     """
     Recommend top N products for a given user based on content similarity.
     
@@ -202,7 +202,7 @@ def content_based_recommendation(cust_id, transactions_df, products_df, top_n=5)
     
     return recommended_product_ids
 
-def popularity_based_recommendation(transactions_df, products_df, top_n=5, category=None):
+def popularity_based_recommendation(transactions_df, products_df, top_n=3, category=None):
     """
     Recommend top N popular products based on overall sales or within a specific category.
     
@@ -231,7 +231,7 @@ def popularity_based_recommendation(transactions_df, products_df, top_n=5, categ
     
     return recommended_product_ids
 
-def cold_start_recommendation(cust_id, transactions_df, products_df, users_df=None, top_n=5):
+def cold_start_recommendation(cust_id, transactions_df, products_df, users_df=None, top_n=3):
     """
     Recommend top N products for a new user using a hybrid approach combining popularity and demographic-based recommendations.
     
@@ -282,7 +282,7 @@ def cold_start_recommendation(cust_id, transactions_df, products_df, users_df=No
     
     return recommended_product_ids
 
-def overall_recommendation(cust_id, transactions_df, products_df, top_n=5):
+def overall_recommendation(cust_id, transactions_df, products_df, top_n=3):
     """
     Generate a consolidated list of product recommendations for a user by integrating
     User-Based Collaborative Filtering, Content-Based Filtering, and Cold Start strategies.
