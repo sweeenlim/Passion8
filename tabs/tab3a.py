@@ -247,7 +247,7 @@ def display_tab3d(tab3, sales_data):
                 "Repeat purchase rate",
                 "Product variety per transaction",
                 "New customer rate",
-                "Average Adjusted ROI"
+                "Average adjusted ROI"
             ],
             key="chart_type_selector_tab3d"  # Unique key to avoid duplicate ID error
         )
@@ -298,7 +298,7 @@ def display_tab3d(tab3, sales_data):
             barmode="group",
             title=title,
             labels={"coupon_code": "Coupon Code", "coupon_status": "Coupon Status", y_axis: title},
-            color_discrete_sequence=["#1f77b4", "#4c78a8"]  # Different shades of blue
+            color_discrete_sequence=["#1f77b4", "#FF0000"] 
         )
 
         # Update layout to make x-axis scrollable
