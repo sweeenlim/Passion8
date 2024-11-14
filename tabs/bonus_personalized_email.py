@@ -38,18 +38,6 @@ df = pd.merge(online_sales, products, on='product_id', how='left')
 
 ##### Product Recommendations #####
 def user_based_recommendation(cust_id, df, top_n=3):
-    """
-    Recommend top N products for a given user based on user similarity.
-
-    Parameters:
-    - cust_id (int): The ID of the user for whom to generate recommendations.
-    - df (DataFrame): The preprocessed DataFrame containing user transactions.
-    - top_n (int): Number of top recommendations to return.
-
-    Returns:
-    - recommendations (list): List of recommended product IDs.
-    """
-
     # Check if the cust_id exists in the DataFrame
     if cust_id not in df['cust_id'].unique():
         print(f"User ID {cust_id} not found in the dataset.")
@@ -125,20 +113,7 @@ def preprocess_text(text):
     
     return ' '.join(tokens)
 
-def content_based_recommendation(cust_id, transactions_df, products_df, top_n=3):
-    """
-    Recommend top N products for a given user based on content similarity.
-    
-    Parameters:
-    - cust_id (int): The ID of the user for whom to generate recommendations.
-    - transactions_df (DataFrame): The DataFrame containing user transactions.
-    - products_df (DataFrame): The DataFrame containing product details.
-    - top_n (int): Number of top recommendations to return.
-    
-    Returns:
-    - recommendations (list): List of recommended product IDs.
-    """
-    
+def content_based_recommendation(cust_id, transactions_df, products_df, top_n=3):    
     # Check if the cust_id exists in the transactions DataFrame
     if cust_id not in transactions_df['cust_id'].unique():
         print(f"User ID {cust_id} not found in the dataset.")
@@ -203,19 +178,6 @@ def content_based_recommendation(cust_id, transactions_df, products_df, top_n=3)
     return recommended_product_ids
 
 def popularity_based_recommendation(transactions_df, products_df, top_n=3, category=None):
-    """
-    Recommend top N popular products based on overall sales or within a specific category.
-    
-    Parameters:
-    - transactions_df (DataFrame): DataFrame containing user transactions with columns ['cust_id', 'product_id', 'quantity', ...].
-    - products_df (DataFrame): DataFrame containing product details with columns ['product_id', 'product_name', 'about_product', 'category', ...].
-    - top_n (int): Number of top recommendations to return.
-    - category (str, optional): If specified, recommend popular products within this category.
-    
-    Returns:
-    - recommended_product_ids (list): List of recommended product IDs.
-    """
-    
     # Merge transactions with products to get category information
     merged_df = transactions_df.merge(products_df, on='product_id', how='left')
     
@@ -232,20 +194,6 @@ def popularity_based_recommendation(transactions_df, products_df, top_n=3, categ
     return recommended_product_ids
 
 def cold_start_recommendation(cust_id, transactions_df, products_df, users_df=None, top_n=3):
-    """
-    Recommend top N products for a new user using a hybrid approach combining popularity and demographic-based recommendations.
-    
-    Parameters:
-    - cust_id (int): The ID of the user for whom to generate recommendations.
-    - transactions_df (DataFrame): DataFrame containing user transactions with columns ['cust_id', 'product_id', 'quantity', ...].
-    - products_df (DataFrame): DataFrame containing product details with columns ['product_id', 'product_name', 'about_product', 'category', ...].
-    - users_df (DataFrame, optional): DataFrame containing user demographic details with columns ['cust_id', 'age', 'gender', 'location', ...].
-    - top_n (int): Number of top recommendations to return.
-    
-    Returns:
-    - recommended_product_ids (list): List of recommended product IDs.
-    """
-    
     # Check if the user exists in the transactions (i.e., is not a new user)
     if cust_id in transactions_df['cust_id'].unique():
         print(f"User ID {cust_id} exists in the dataset. Use user-based or content-based recommendations instead.")
@@ -283,22 +231,6 @@ def cold_start_recommendation(cust_id, transactions_df, products_df, users_df=No
     return recommended_product_ids
 
 def overall_recommendation(cust_id, transactions_df, products_df, top_n=3):
-    """
-    Generate a consolidated list of product recommendations for a user by integrating
-    User-Based Collaborative Filtering, Content-Based Filtering, and Cold Start strategies.
-    
-    Parameters:
-    - cust_id (int): The ID of the user for whom to generate recommendations.
-    - transactions_df (DataFrame): DataFrame containing user transactions with columns ['cust_id', 'product_id', 'Quantity', ...].
-    - products_df (DataFrame): DataFrame containing product details with columns ['product_id', 'product_name', 'about_product', 'category', ...].
-    - users_df (DataFrame, optional): DataFrame containing user demographic details with columns ['cust_id', 'age', 'gender', 'location', ...].
-    - top_n (int): Number of top recommendations to return.
-    
-    Returns:
-    - final_recommendations (list): List of recommended product IDs.
-    - final_recommendation_names (list, optional): List of recommended product names (if available in products_df).
-    """
-    
     # Initialize a dictionary to hold aggregated recommendation scores
     recommendation_scores = {}
     
@@ -335,7 +267,17 @@ def overall_recommendation(cust_id, transactions_df, products_df, top_n=3):
     # Extract the top_n product_ids
     top_recommendations = rec_scores_df.head(top_n)['product_id'].tolist()
     
+    # If there are fewer than top_n recommendations, use popularity-based recommendations to fill the gap
+    if len(top_recommendations) < top_n:
+        additional_recs = popularity_based_recommendation(transactions_df, products_df, top_n=top_n - len(top_recommendations))
+        for pid in additional_recs:
+            if pid not in top_recommendations:
+                top_recommendations.append(pid)
+                if len(top_recommendations) == top_n:
+                    break
+    
     print("Generating Final Recommendations...  Done!")
+    
     # Optionally, retrieve product names for better readability
     if 'product_name' in products_df.columns:
         # Ensure that all product_ids are present in products_df
@@ -356,50 +298,73 @@ client = H2OGPTE( # Initialize the H2OGPTE client
 
 # Summarizing product descriptions
 def summarize_description(description):
-    """
-    Summarize a product description using H2OGPTE to make it more concise.
-
-    Parameters:
-    - description (str): The long product description to summarize.
-
-    Returns:
-    - summary (str): A concise version of the product description.
-    """
-    # Create a prompt to summarize the description
     summary_prompt = f"Summarize the following product description concisely:\n\n{description}"
+    attempts = 3  # Number of retry attempts
 
-    # Start a chat session for summarization
-    chat_session_id = client.create_chat_session()
-    with client.connect(chat_session_id) as session:
-        reply = session.query(summary_prompt, timeout=60)
+    for _ in range(attempts):
+        chat_session_id = client.create_chat_session()
+        with client.connect(chat_session_id) as session:
+            reply = session.query(summary_prompt, timeout=60)
+        
+        summary = reply.content.strip()
+        
+        # Check if the summarization is different from the original
+        if summary != description:
+            return summary
+
+    # Return original description if summarization fails after retries
+    return description
+
+def create_email_prompt(user_id, user_info, formatted_recs):
+    prompt = f"""
+    Create a personalized email from Amazon for User ID {user_id}.
     
-    # Return the summarized description
-    summary = reply.content.strip()
-    return summary
+    User Information:
+    Age: {user_info.get('age')}
+    Gender: {user_info.get('gender')}
+    
+    Recommended Products:
+    Please provide the following details for each recommended product in a structured format:
+    - Product Name
+    - Description
+    - Price
+    - Image Link
+    - Discount Code (if applicable)
+    - Discount Percentage (if applicable)
+    
+    Example Format:
+    - Product: [Product Name]
+    Description: [Concise Description]
+    Price: $[Actual Price]
+    Image Link: [URL]
+    Discount: [Discount Code] - [Discount Percentage]% off
+    
+    Here is the email content:
+    
+    Dear Customer {user_id},
+
+    Based on your recent interests, here are some product recommendations we think you'll love:
+    [Include each recommended product with all details in the format above.]
+
+    Thank you for choosing Amazon. We look forward to helping you find more products you love.
+
+    Warm regards,
+    Your Amazon Team
+    """
+    return prompt
 
 def generate_personalized_email_h2o(user_id):
-    """
-    Generate personalized email content with summarized product descriptions, image links, and discount coupons.
-
-    Parameters:
-    - user_id (int): ID of the user for whom to generate the email.
-
-    Returns:
-    - email_content (str): Generated personalized email content.
-    """
-
     # Retrieve user demographics
     user_info = users[users['user_id'] == user_id].iloc[0].to_dict()
 
     # Generate product recommendations
-    recommendations, _ = overall_recommendation(user_id, df, products, top_n=5)
+    recommendations, _ = overall_recommendation(user_id, df, products, top_n=3)
 
     # Format email details
     formatted_recs = []
     for pid in recommendations:
         product_name = products.loc[products['product_id'] == pid, 'product_name'].values[0]
         about_product = products.loc[products['product_id'] == pid, 'about_product'].values[0]
-        category = products.loc[products['product_id'] == pid, 'category'].values[0]
         actual_price = products.loc[products['product_id'] == pid, 'actual_price'].values[0]
         img_link = products.loc[products['product_id'] == pid, 'img_link'].values[0]
         discount_coupon = online_sales[online_sales['product_id'] == pid]['coupon_code'].values[0] if not online_sales[online_sales['product_id'] == pid]['coupon_code'].isnull().all() else "No discount available"
@@ -412,58 +377,25 @@ def generate_personalized_email_h2o(user_id):
         formatted_recs.append({
             'product_name': product_name,
             'about_product': summarized_description,
-            'category': category,
             'actual_price': actual_price,
             'img_link': img_link,
             'discount_coupon': discount_coupon,
             'discount_pct': discount_pct,
         })
 
-    # Create the prompt for H2O.ai LLM
-    prompt = f"""
-    Create a personalized email from Amazon for User ID {user_id}.
-    
-    User Information:
-    Age: {user_info.get('age')}
-    Gender: {user_info.get('gender')}
-    
-    Recommended Products:
-    """
-    for rec in formatted_recs:
-        prompt += f"""
-        - Product: {rec['product_name']}
-        Category: {rec['category']}
-        Description: {rec['about_product']}
-        Price: ${rec['actual_price']}
-        Image Link: {rec['img_link']}
-        Discount: {rec['discount_coupon']} - {rec['discount_pct'] * 100}% off
-        """
+    # Generate the prompt text
+    prompt = create_email_prompt(user_id, user_info, formatted_recs)
 
-    prompt += f"""
-    Email Content:
-    Dear Customer {user_id},
-
-    As a valued member of the Amazon family, we’re always looking for ways to make your shopping experience even better. Based on your recent interests, we’ve curated some product recommendations that we think you’ll love.
-
-    Here’s what we’ve picked out for you:
-
-    [Include the list of recommended products with descriptions, images, and exclusive discount codes, if available.]
-    """
-
-    # Start a chat session
+    # Start a chat session and send the prompt
     chat_session_id = client.create_chat_session()
-
-    # Send the prompt to the model within the chat session
     with client.connect(chat_session_id) as session:
         reply = session.query(prompt, timeout=60)
 
     # Extract the generated email content
-    main_content = reply.content.strip()
+    email_content = reply.content.strip()  # Directly use the generated content without additional closing text
 
-    # Append the closing text
-    closing_text = "\n\nThank you for choosing Amazon. We look forward to helping you find more products you love.\n\nWarm regards,\n\nYour Amazon Team"
-    email_content = main_content + closing_text
     return email_content
+
 
 #### Streamlit App ####
 def display_personalized_email_tab(tab):
