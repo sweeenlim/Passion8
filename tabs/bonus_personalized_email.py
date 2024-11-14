@@ -298,7 +298,7 @@ client = H2OGPTE( # Initialize the H2OGPTE client
 
 # Summarizing product descriptions
 def summarize_description(description):
-    summary_prompt = f"Summarize the following product description concisely:\n\n{description}"
+    summary_prompt = f"Summarize the following product description in one line:\n\n{description}"
     attempts = 3  # Number of retry attempts
 
     for _ in range(attempts):
@@ -315,42 +315,71 @@ def summarize_description(description):
     # Return original description if summarization fails after retries
     return description
 
-def create_email_prompt(user_id, user_info, formatted_recs):
-    prompt = f"""
-    Create a personalized email from Amazon for User ID {user_id}.
+def create_email_prompt(user_id, user_info, recommendations):
+    """
+    Create a prompt for the LLM to generate a personalized email with specific product recommendations.
+
+    Parameters:
+    - user_id (int): The ID of the user.
+    - user_info (dict): Dictionary containing user demographics.
+    - recommendations (list of dict): List of recommended products with details.
+
+    Returns:
+    - str: The formatted prompt for the LLM.
+    """
     
+    prompt = f"""
+    Create a personalized email from Amazon for User ID {user_id} in HTML format.
+
     User Information:
     Age: {user_info.get('age')}
     Gender: {user_info.get('gender')}
     
     Recommended Products:
-    Please provide the following details for each recommended product in a structured format:
+    Please include each product with the following details:
     - Product Name
     - Description
     - Price
     - Image Link
     - Discount Code (if applicable)
     - Discount Percentage (if applicable)
-    
-    Example Format:
-    - Product: [Product Name]
-    Description: [Concise Description]
-    Price: $[Actual Price]
-    Image Link: [URL]
-    Discount: [Discount Code] - [Discount Percentage]% off
-    
-    Here is the email content:
-    
-    Dear Customer {user_id},
 
-    Based on your recent interests, here are some product recommendations we think you'll love:
-    [Include each recommended product with all details in the format above.]
+    Here is the email content in HTML:
 
-    Thank you for choosing Amazon. We look forward to helping you find more products you love.
+    <p>Dear Customer {user_id},</p>
 
-    Warm regards,
-    Your Amazon Team
+    <p>As a valued member of the Amazon family, we’re always looking for ways to make your shopping experience even better. Based on your recent interests, we’ve curated some product recommendations that we think you’ll love.</p>
+
+    <p>Here’s what we’ve picked out for you:</p>
+
+    <ol>
     """
+
+    # Append each recommendation in the prompt
+    for idx, rec in enumerate(recommendations, 1):
+        # Calculate discounted price if discount_pct is provided
+        discounted_price = rec['actual_price'] * (1 - rec['discount_pct']) if rec['discount_pct'] > 0 else rec['actual_price']
+        
+        prompt += f"""
+        <li><strong>{rec['product_name']}</strong>
+            <ul>
+                <li>Description: {rec['about_product']}</li>
+                <li><img src="{rec['img_link']}" width="150"></li>
+                <li><strong>Price:</strong> <span style="text-decoration: line-through; color: black;">${rec['actual_price']:.2f}</span> <span style="color: red; font-weight: bold;">${discounted_price:.2f}</span></li>
+                <li><strong>Discount:</strong> {rec['discount_coupon']} - {rec['discount_pct'] * 100}% off</li>
+            </ul>
+        </li>
+        """
+
+    prompt += """
+    </ol>
+
+    <p>Thank you for choosing Amazon. We look forward to helping you find more products you love.</p>
+
+    <p>Warm regards,</p>
+    <p>Your Amazon Team</p>
+    """
+
     return prompt
 
 def generate_personalized_email_h2o(user_id):
