@@ -87,7 +87,7 @@ col4, col5, col6 = st.columns(3)
 # Define lists of words for each column
 words_col4 = ["Customer Analysis", "Customer Churn Rates", "Marketing Channel Analysis"]
 words_col5 = ["Demand Forecast", "Pricing Strategies", "Supply Chain Efficiency"]
-words_col6 = ["AI Recommendation Bot", "Computer Vision", "Sentiment Analysis", "AI Personalized Marketing"]
+words_col6 = ["AI Recommendation Bot", "Computer Vision", "Sentiment Analysis", "Personalized Email"]
 
 
 # Generate HTML strings for each column
