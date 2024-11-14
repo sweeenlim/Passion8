@@ -16,7 +16,7 @@ astunparse==1.6.3
 attrs==24.2.0
 autograd==1.7.0
 backcall==0.2.0
-# bayesian-optimization==1.4.1
+bayesian-optimization==1.4.1
 beautifulsoup4==4.12.2
 bioc==2.1
 bitsandbytes==0.42.0
