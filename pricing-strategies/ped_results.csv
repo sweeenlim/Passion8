@@ -1,5 +1,5 @@
 category,PED
-Computers&Accessories|Accessories&Peripherals|Cables&Accessories|Cables|USBCables,-1.0
+Computers&Accessories|Accessories&Peripherals|Cables&Accessories|Cables|USBCables,0.2454196836010779
 Computers&Accessories|Accessories&Peripherals|HardDiskBags,0.46796104547955436
 "Computers&Accessories|Accessories&Peripherals|Keyboards,Mice&InputDevices|Keyboard&MiceAccessories|MousePads",-0.9507308381048779
 "Computers&Accessories|Accessories&Peripherals|Keyboards,Mice&InputDevices|Mice",0.4850524105405454
@@ -8,7 +8,7 @@ Computers&Accessories|Accessories&Peripherals|LaptopAccessories|CameraPrivacyCov
 Computers&Accessories|Accessories&Peripherals|LaptopAccessories|Lapdesks,-0.8188098453846737
 Computers&Accessories|Accessories&Peripherals|PCGamingPeripherals|Gamepads,0.9824504254598813
 Computers&Accessories|ExternalDevices&DataStorage|PenDrives,1.166932559887727
-Computers&Accessories|Laptops|TraditionalLaptops,-1.0
+Computers&Accessories|Laptops|TraditionalLaptops,0.576651474128573
 "Computers&Accessories|Printers,Inks&Accessories|Inks,Toners&Cartridges|InkjetInkCartridges",1.8273492015130826
 "Computers&Accessories|Printers,Inks&Accessories|Printers",-0.11330408660692068
 Electronics|Accessories|MemoryCards|MicroSD,0.12972567086927497
@@ -16,19 +16,19 @@ Electronics|Cameras&Photography|Accessories|Tripods&Monopods|Tabletop&TravelTrip
 Electronics|Cameras&Photography|Flashes|Macro&RinglightFlashes,0.009520502744812587
 Electronics|Cameras&Photography|SecurityCameras|DomeCameras,0.04572078578579607
 "Electronics|Headphones,Earbuds&Accessories|Cases",-0.677771194274417
-"Electronics|Headphones,Earbuds&Accessories|Headphones|In-Ear",-1.0
-"Electronics|Headphones,Earbuds&Accessories|Headphones|On-Ear",-1.0
+"Electronics|Headphones,Earbuds&Accessories|Headphones|In-Ear",-0.3881125529797188
+"Electronics|Headphones,Earbuds&Accessories|Headphones|On-Ear",-0.12813324049029387
 Electronics|HomeAudio|Accessories|Adapters,-0.3307142762829296
 Electronics|HomeAudio|MediaStreamingDevices|StreamingClients,-0.6346687079914385
-"Electronics|HomeTheater,TV&Video|Accessories|RemoteControls",-1.0
+"Electronics|HomeTheater,TV&Video|Accessories|RemoteControls",-0.1296937007865384
 "Electronics|HomeTheater,TV&Video|Projectors",-0.49632331528531726
 "Electronics|HomeTheater,TV&Video|Televisions|SmartTelevisions",-0.1900421646688701
 Electronics|Mobiles&Accessories|MobileAccessories|Cables&Adapters|OTGAdapters,-0.4324668830378536
 "Electronics|Mobiles&Accessories|MobileAccessories|Maintenance,Upkeep&Repairs|ScreenProtectors",0.1646640054220298
-Electronics|Mobiles&Accessories|MobileAccessories|Mounts|HandlebarMounts,-1.0
+Electronics|Mobiles&Accessories|MobileAccessories|Mounts|HandlebarMounts,-0.1202743291307249
 Electronics|Mobiles&Accessories|MobileAccessories|Photo&VideoAccessories|SelfieSticks,-0.1811809219889126
 Electronics|Mobiles&Accessories|MobileAccessories|Photo&VideoAccessories|Tripods,-0.1257010660859479
-Electronics|Mobiles&Accessories|MobileAccessories|Stands,-1.0
+Electronics|Mobiles&Accessories|MobileAccessories|Stands,0.19817483928235205
 Electronics|Mobiles&Accessories|MobileAccessories|StylusPens,0.5068050958652177
 Electronics|Mobiles&Accessories|Smartphones&BasicMobiles|BasicMobiles,-0.5550579896005244
 Electronics|Mobiles&Accessories|Smartphones&BasicMobiles|Smartphones,-0.08021740938695215
@@ -65,5 +65,5 @@ OfficeProducts|OfficeElectronics|Calculators|Scientific,0.21530323674740154
 OfficeProducts|OfficePaperProducts|Paper|Copy&PrintingPaper|ColouredPaper,0.4380909205724092
 "OfficeProducts|OfficePaperProducts|Paper|Stationery|Notebooks,WritingPads&Diaries|Notepads&MemoBooks",-1.9843930104583232
 "OfficeProducts|OfficePaperProducts|Paper|Stationery|Notebooks,WritingPads&Diaries|WireboundNotebooks",0.9109917488404556
-"OfficeProducts|OfficePaperProducts|Paper|Stationery|Pens,Pencils&WritingSupplies|Pens&Refills|BottledInk",-1.0
+"OfficeProducts|OfficePaperProducts|Paper|Stationery|Pens,Pencils&WritingSupplies|Pens&Refills|BottledInk",0.44262683377541584
 "OfficeProducts|OfficePaperProducts|Paper|Stationery|Pens,Pencils&WritingSupplies|Pens&Refills|RetractableBallpointPens",0.4048781477012071
