@@ -6,16 +6,16 @@ import streamlit as st
 from h2ogpte import H2OGPTE
 
 # Explicitly specify the path to the .env file
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
-h2o_api = os.getenv('H2O_API_KEY_CHATBOT')
-h20_collection_id = os.getenv('H2O_PRODUCTS_COLLECTION_ID')
+h2o_api = os.getenv("H2O_API_KEY_CHATBOT")
+h20_collection_id = os.getenv("H2O_PRODUCTS_COLLECTION_ID")
 
 
 # Initialize the H2OGPTE client
 client = H2OGPTE(
-    address='https://h2ogpte.genai.h2o.ai',
-    api_key= h2o_api,
+    address="https://h2ogpte.genai.h2o.ai",
+    api_key=h2o_api,
 )
 
 collection_id = h20_collection_id
@@ -48,12 +48,15 @@ def display_ai_chatbot_tab(tab):
 
             # Query the LLM with the user's input
             bot_response = get_recommendation(chat_session_id, user_input)
-            
+
             # Display the chatbot's response
             with st.chat_message("assistant"):
                 st.markdown(bot_response)
             # Add chatbot's response to chat history
-            st.session_state.messages.append({"role": "assistant", "content": bot_response})
+            st.session_state.messages.append(
+                {"role": "assistant", "content": bot_response}
+            )
+
 
 def get_recommendation(chat_session_id, user_input):
 
@@ -61,13 +64,13 @@ def get_recommendation(chat_session_id, user_input):
         chat_session_id = client.create_chat_session(collection_id)
 
     with client.connect(chat_session_id) as session:
-                reply = session.query(
-                    message=user_input,  # Use the actual user input here
-                    llm='gpt-4o',
-                    rag_config={
-                        "rag_type": "rag",
-                    },
-                    system_prompt=f"""
+        reply = session.query(
+            message=user_input,  # Use the actual user input here
+            llm="gpt-4o",
+            rag_config={
+                "rag_type": "rag",
+            },
+            system_prompt=f"""
                         You are a friendly and helpful customer service agent at an online store, assisting customers with personalized product recommendations from our collection. Your goal is to carefully understand the customer’s query and suggest the most relevant product to meet their needs.
 
                         If the customer’s query is vague or lacks specific details, politely ask clarifying questions to better understand their preferences. Pay close attention to any hints in the query that could help you identify suitable products, such as desired features, uses, or types.
@@ -91,8 +94,8 @@ def get_recommendation(chat_session_id, user_input):
                         If you cannot find a suitable product, politely ask the customer for more details to help refine your recommendation. Remember to source the whole collection for the best match.
 
                         User Query: "{user_input}"
-                        """
-                )
-                bot_response = reply.content
+                        """,
+        )
+        bot_response = reply.content
 
     return bot_response
