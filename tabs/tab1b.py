@@ -89,7 +89,6 @@ def load_product_details(products, product_id):
         }
     )
     product_details = product_details.T
-    print(product_details)
     product_details.columns = ["Details"]
     return product_details
 
