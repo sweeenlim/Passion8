@@ -3,19 +3,19 @@ import os
 import streamlit as st
 from h2ogpte import H2OGPTE
 
-# Load environment variables    
+# Load environment variables
 current_dir = os.getcwd()
 parent_dir = os.path.dirname(current_dir)
 
-load_dotenv(f'{parent_dir}/.env')
+load_dotenv(f"{parent_dir}/.env")
 
-h2o_api = os.getenv('H2O_API_KEY_CHATBOT')
-h20_collection_id = os.getenv('H2O_PRODUCTS_COLLECTION_ID')
+h2o_api = os.getenv("H2O_API_KEY_CHATBOT")
+h20_collection_id = os.getenv("H2O_PRODUCTS_COLLECTION_ID")
 
 # Initialize the H2OGPTE client
 client = H2OGPTE(
-    address='https://h2ogpte.genai.h2o.ai',
-    api_key= h2o_api,
+    address="https://h2ogpte.genai.h2o.ai",
+    api_key=h2o_api,
 )
 
 # Automatically connects to the Collection connected to the Collection-specific API key
@@ -45,11 +45,11 @@ if user_input := st.chat_input("What are you looking for today?"):
     # Query the LLM with the user's input
     with client.connect(chat_session_id) as session:
         reply = session.query(
-        message="user_input",
-        rag_config={
-            "rag_type": "rag",
-        },
-        system_prompt= f"""
+            message="user_input",
+            rag_config={
+                "rag_type": "rag",
+            },
+            system_prompt=f"""
 You are a friendly and helpful customer service agent at an online store, assisting customers with personalized product recommendations from our collection. Your goal is to carefully understand the customer’s query and suggest the most relevant product to meet their needs.
 
 If the customer’s query is vague or lacks specific details, politely ask clarifying questions to better understand their preferences. Pay close attention to any hints in the query that could help you identify suitable products, such as desired features, uses, or types.
@@ -72,8 +72,8 @@ Your response should follow this structure for each recommendation:
 If you cannot find a suitable product, politely ask the customer for more details to help refine your recommendation. Remember to source the whole collection for the best match.
 
 User Query: "{user_input}"
-"""
-    )
+""",
+        )
         bot_response = reply.content
 
     # Display the chatbot's response
